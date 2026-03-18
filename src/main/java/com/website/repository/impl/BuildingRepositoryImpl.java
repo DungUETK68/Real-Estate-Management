@@ -1,7 +1,6 @@
 package com.website.repository.impl;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,13 +12,10 @@ import org.springframework.stereotype.Repository;
 
 import com.website.repository.BuildingRepository;
 import com.website.repository.entity.BuildingEntity;
+import com.website.utils.ConnectionJDBCUtil;
 
 @Repository
 public class BuildingRepositoryImpl implements BuildingRepository {
-	static final String DB_URL = "jdbc:mysql://localhost:3306/estatebasic";
-	static final String USER = "root";
-	static final String PASS = "123456";
-	
 	public static void joinTable(Map<String, Object> params, List<String> typeCode, StringBuilder sql) {
 		if (typeCode != null && !typeCode.isEmpty()) {
 			sql.append("INNER JOIN buildingrenttype ON b.id = buildingrenttype.buildingid ");
@@ -80,7 +76,7 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 		System.out.print(sql);
 		
 		List<BuildingEntity> result = new ArrayList<>();
-		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		try(Connection conn = ConnectionJDBCUtil.getConnection();
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql.toString());) {
 			

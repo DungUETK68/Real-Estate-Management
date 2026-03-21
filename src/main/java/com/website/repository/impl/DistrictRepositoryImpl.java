@@ -1,17 +1,13 @@
 package com.website.repository.impl;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.website.repository.DistrictRepository;
-import com.website.repository.entity.BuildingEntity;
 import com.website.repository.entity.DistrictEntity;
 import com.website.utils.ConnectionJDBCUtil;
 

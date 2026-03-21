@@ -6,35 +6,46 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.website.builder.BuildingSearchBuilder;
 import com.website.repository.BuildingRepository;
 import com.website.repository.entity.BuildingEntity;
 import com.website.utils.ConnectionJDBCUtil;
 
 @Repository
 public class BuildingRepositoryImpl implements BuildingRepository {
-	public static void joinTable(Map<String, Object> params, List<String> typeCode, StringBuilder sql) {
+	public static void joinTable(BuildingSearchBuilder buildingSearchBuilder, StringBuilder sql) {
+		List<String> typeCode = buildingSearchBuilder.getTypeCode();
 		if (typeCode != null && !typeCode.isEmpty()) {
 			sql.append("INNER JOIN buildingrenttype ON b.id = buildingrenttype.buildingid ");
 			sql.append("INNER JOIN renttype ON buildingrenttype.renttypeid = renttype.id ");
 		}
 		
-		String rentArea1 = (String)params.get("rentArea1");
-		String rentArea2 = (String)params.get("rentArea2");
+		Object rentArea1 = buildingSearchBuilder.getRentArea1();
+		Object rentArea2 = buildingSearchBuilder.getRentArea2();
+		if (buildingSearchBuilder.getRentArea1() != null) {
+			rentArea1 = buildingSearchBuilder.getRentArea1().toString();
+		}
+		if (buildingSearchBuilder.getRentArea2() != null) {
+			rentArea2 = buildingSearchBuilder.getRentArea2().toString();
+		}
 		if((rentArea1 != null && !rentArea1.equals("")) || (rentArea2 != null && !rentArea2.equals(""))) {
 			sql.append("INNER JOIN rentarea ON b.id = rentarea.buildingid ");
 		}
 		
-		String staffId = (String)params.get("staffId");
+		Object staffId = buildingSearchBuilder.getStaffId();
+		if (staffId != null) {
+			staffId = buildingSearchBuilder.getStaffId().toString();
+		}
 		if(staffId != null && !staffId.equals("")) {
 			sql.append("INNER JOIN assignmentbuilding ON b.id = assignmentbuilding.buildingid ");
 		}
 	}
 	
-	public static void query(Map<String, Object> params, List<String> typeCode, StringBuilder where) {
+	public static void query(BuildingSearchBuilder buildingSearchBuilder, StringBuilder where) {
+		List<String> typeCode = buildingSearchBuilder.getTypeCode();
 		if (typeCode != null && !typeCode.isEmpty()) {
 	        where.append("AND renttype.code IN (");
 	        for (int i = 0; i < typeCode.size(); i++) {
@@ -46,8 +57,14 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 	        where.append(") ");
 	    }
 		
-		String rentArea1 = (String)params.get("rentArea1");
-	    String rentArea2 = (String)params.get("rentArea2");
+		Object rentArea1 = buildingSearchBuilder.getRentArea1();
+		Object rentArea2 = buildingSearchBuilder.getRentArea2();
+		if (buildingSearchBuilder.getRentArea1() != null) {
+			rentArea1 = buildingSearchBuilder.getRentArea1().toString();
+		}
+		if (buildingSearchBuilder.getRentArea2() != null) {
+			rentArea2 = buildingSearchBuilder.getRentArea2().toString();
+		}
 	    if(rentArea1 != null && !rentArea1.equals("")) {
 	    	where.append("AND rentarea.value >= ").append(rentArea1).append(" ");
 	    }
@@ -55,22 +72,25 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 	    	where.append("AND rentarea.value <= ").append(rentArea2).append(" ");
 	    }
 	    
-	    String staffId = (String)params.get("staffId");
+	    Object staffId = buildingSearchBuilder.getStaffId();
+		if (staffId != null) {
+			staffId = buildingSearchBuilder.getStaffId().toString();
+		}
 	    if (staffId != null && !staffId.equals("")) {
 	    	where.append("AND assignmentbuilding.staffid = ").append(staffId).append(" ");
 	    }
 	}
 
 	@Override
-	public List<BuildingEntity> findAll(Map<String, Object> params, List<String> typeCode) {
+	public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {
 		StringBuilder sql = new StringBuilder("SELECT b.id, b.name, b.numberofbasement, b.ward, b.street, b.direction, b.level, "
 	            + "b.managername, b.managerphonenumber, b.floorarea, b.districtid, b.rentprice, "
 	            + "b.servicefee, b.brokeragefee, "
 	            + "(SELECT GROUP_CONCAT(ra.value) FROM rentarea ra WHERE ra.buildingid = b.id) as rentarea "
 	            + "FROM building b ");
-		joinTable(params, typeCode, sql);
+		joinTable(buildingSearchBuilder, sql);
 		StringBuilder where = new StringBuilder("WHERE 1 = 1 ");
-		query(params, typeCode, where);
+		query(buildingSearchBuilder, where);
 		sql.append(where);
 		sql.append(" GROUP BY b.id");
 		System.out.print(sql);

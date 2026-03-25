@@ -13,44 +13,52 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "district")
-public class DistrictEntity {
-	
+@Table(name = "role")
+public class RoleEntity {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "code")
-	private String code;
-	
-	@Column(name = "name")
+	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@OneToMany(mappedBy = "district", fetch = FetchType.LAZY)
-	List<BuildingEntity> items = new ArrayList<>(); 
+	@Column(name = "code", unique = true, nullable = false)
+	private String code;
 	
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-	public List<BuildingEntity> getItems() {
-		return items;
-	}
-	public void setItems(List<BuildingEntity> items) {
-		this.items = items;
-	}
+	@OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+	List<UserRoleEntity> items = new ArrayList<>();
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public List<UserRoleEntity> getItems() {
+		return items;
+	}
+
+	public void setItems(List<UserRoleEntity> items) {
+		this.items = items;
+	}
+	
 }

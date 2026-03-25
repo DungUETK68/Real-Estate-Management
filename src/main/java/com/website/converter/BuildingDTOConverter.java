@@ -11,15 +11,13 @@ import com.website.repository.entity.DistrictEntity;
 
 @Component
 public class BuildingDTOConverter {
-	@Autowired
-	private DistrictRepository districtRepository;
 	
 	@Autowired
 	private ModelMapper modelMapper;
 	
 	public BuildingDTO toBuildingDTO(BuildingEntity buildingEntity) {
 		BuildingDTO building = modelMapper.map(buildingEntity, BuildingDTO.class);
-		DistrictEntity districtEntity = districtRepository.getNameById(buildingEntity.getDistrictId()); 
+		DistrictEntity districtEntity = buildingEntity.getDistrict();
 		building.setAddress(buildingEntity.getStreet() + ", " + buildingEntity.getWard() + ", " + districtEntity.getName());
 		
 		return building;

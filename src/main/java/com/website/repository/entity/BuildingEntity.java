@@ -40,14 +40,8 @@ public class BuildingEntity {
 	@Column(name = "managerphonenumber")
 	private String managerPhoneNumber;
 	
-	@Column(name = "emptyarea")
-	private Long emptyArea;
-	
 	@Column(name = "floorarea")
 	private Long floorArea;
-	
-	@Column(name = "rentarea")
-	private String rentArea;
 	
 	@Column(name = "rentprice")
 	private Long rentPrice;
@@ -120,24 +114,14 @@ public class BuildingEntity {
 	public void setFloorArea(Long floorArea) {
 		this.floorArea = floorArea;
 	}
-	public String getRentArea() {
-		return rentArea;
-	}
-	public void setRentArea(String rentArea) {
-		this.rentArea = rentArea;
-	}
+
 	public Long getRentPrice() {
 		return rentPrice;
 	}
 	public void setRentPrice(Long rentPrice) {
 		this.rentPrice = rentPrice;
 	}
-	public Long getEmptyArea() {
-		return emptyArea;
-	}
-	public void setEmptyArea(Long emptyArea) {
-		this.emptyArea = emptyArea;
-	}
+
 	public Double getServiceFee() {
 		return serviceFee;
 	}

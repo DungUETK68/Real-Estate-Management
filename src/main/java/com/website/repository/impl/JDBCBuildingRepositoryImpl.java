@@ -109,9 +109,7 @@ public class JDBCBuildingRepositoryImpl implements BuildingRepository {
 				building.setManagerName(rs.getString("managername"));
 				building.setManagerPhoneNumber(rs.getString("managerphonenumber"));
 				building.setFloorArea(rs.getLong("floorarea"));
-				building.setRentArea(rs.getString("rentarea"));
 				building.setRentPrice(rs.getLong("rentprice"));
-				building.setEmptyArea(rs.getLong("floorarea"));
 				building.setServiceFee(rs.getDouble("servicefee"));
 				building.setBrokerageFee(rs.getDouble("brokeragefee"));
 				result.add(building);

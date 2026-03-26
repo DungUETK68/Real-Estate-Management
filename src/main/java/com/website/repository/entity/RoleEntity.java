@@ -9,7 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,8 +26,18 @@ public class RoleEntity {
 	@Column(name = "code", unique = true, nullable = false)
 	private String code;
 	
-	@OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-	List<UserRoleEntity> items = new ArrayList<>();
+	@ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+	List<UserEntity> users = new ArrayList<>();
+
+	
+	
+	public List<UserEntity> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<UserEntity> users) {
+		this.users = users;
+	}
 
 	public Long getId() {
 		return id;
@@ -52,13 +62,4 @@ public class RoleEntity {
 	public void setCode(String code) {
 		this.code = code;
 	}
-
-	public List<UserRoleEntity> getItems() {
-		return items;
-	}
-
-	public void setItems(List<UserRoleEntity> items) {
-		this.items = items;
-	}
-	
 }

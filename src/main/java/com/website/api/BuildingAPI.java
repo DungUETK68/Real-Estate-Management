@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.website.model.BuildingDTO;
 import com.website.model.BuildingRequestDTO;
+import com.website.repository.BuildingRepository;
 import com.website.repository.entity.BuildingEntity;
 import com.website.repository.entity.DistrictEntity;
 import com.website.service.BuildingService;
@@ -31,6 +32,9 @@ public class BuildingAPI {
 	@Autowired
 	private BuildingService buildingService;
 	
+	@Autowired
+	private BuildingRepository buildingRepository;
+	
 	@PersistenceContext
 	private EntityManager entityManager;
 	
@@ -40,6 +44,12 @@ public class BuildingAPI {
 		List<BuildingDTO> result = buildingService.findAll(params, typeCode);
 		return result;
  	}
+	
+//	@GetMapping(value = "/api/building/{id}")
+//	public BuildingEntity getBuildingById(@PathVariable Long id) {
+//		BuildingEntity buildingEntity = buildingRepository.findById(id).get();
+//		return buildingEntity;
+// 	}
 	
 	public void valiDate(BuildingDTO buildingDTO){
 		if(buildingDTO.getName() == null || buildingDTO.getName().equals("") || buildingDTO.getNumberOfBasement() == null) {
@@ -79,4 +89,9 @@ public class BuildingAPI {
 		BuildingEntity buildingEntity = entityManager.find(BuildingEntity.class, id);
 		entityManager.remove(buildingEntity);
 	}
+	
+//	@DeleteMapping(value = "/api/building/{id}")
+//	public void deleteBuildingById(@PathVariable Long[] ids) {
+//		buildingRepository.deleteByIdIn(ids);
+//	}
 }

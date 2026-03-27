@@ -1,4 +1,4 @@
-package com.website.repository.impl;
+package com.website.repository.custom.impl;
 
 import java.util.List;
 
@@ -15,12 +15,11 @@ import com.website.repository.entity.BuildingEntity;
 
 @Repository
 @Primary
-public class BuildingRepositoryImpl implements BuildingRepository {
+public class BuildingRepositoryImpl {
 
 	@PersistenceContext
 	private EntityManager entityManager;
 	
-	@Override
 	public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {
 		// TODO Auto-generated method stub
 		//Sql Native

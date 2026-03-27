@@ -1,4 +1,4 @@
-package com.website.repository.impl;
+package com.website.repository.custom.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,7 +15,7 @@ import com.website.repository.entity.BuildingEntity;
 import com.website.utils.ConnectionJDBCUtil;
 
 @Repository
-public class JDBCBuildingRepositoryImpl implements BuildingRepository {
+public class JDBCBuildingRepositoryImpl {
 	public static void joinTable(BuildingSearchBuilder buildingSearchBuilder, StringBuilder sql) {
 		List<String> typeCode = buildingSearchBuilder.getTypeCode();
 		if (typeCode != null && !typeCode.isEmpty()) {
@@ -81,7 +81,6 @@ public class JDBCBuildingRepositoryImpl implements BuildingRepository {
 	    }
 	}
 
-	@Override
 	public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {
 		StringBuilder sql = new StringBuilder("SELECT b.id, b.name, b.numberofbasement, b.ward, b.street, b.direction, b.level, "
 	            + "b.managername, b.managerphonenumber, b.floorarea, b.districtid, b.rentprice, "

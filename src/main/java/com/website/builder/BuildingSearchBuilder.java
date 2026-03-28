@@ -32,7 +32,7 @@ public class BuildingSearchBuilder {
 		this.rentPrice1 = builder.rentPrice1;
 		this.rentPrice2 = builder.rentPrice2;
 		this.rentArea1 = builder.rentArea1;
-		this.rentArea1 = builder.rentArea2;
+		this.rentArea2 = builder.rentArea2;
 		this.staffId = builder.staffId;
 		}
 	

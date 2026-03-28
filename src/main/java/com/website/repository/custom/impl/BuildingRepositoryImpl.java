@@ -59,19 +59,41 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
 	        where.append(") ");
 	    }
 		
-		Object rentArea1 = buildingSearchBuilder.getRentArea1();
-		Object rentArea2 = buildingSearchBuilder.getRentArea2();
-		if (buildingSearchBuilder.getRentArea1() != null) {
-			rentArea1 = buildingSearchBuilder.getRentArea1().toString();
-		}
-		if (buildingSearchBuilder.getRentArea2() != null) {
-			rentArea2 = buildingSearchBuilder.getRentArea2().toString();
-		}
-	    if(rentArea1 != null && !rentArea1.equals("")) {
-	    	where.append("AND rentarea.value >= ").append(rentArea1).append(" ");
+		if (buildingSearchBuilder.getName() != null && !buildingSearchBuilder.getName().trim().isEmpty()) {
+	        where.append("AND b.name LIKE '%").append(buildingSearchBuilder.getName()).append("%' ");
 	    }
-	    if(rentArea2 != null && !rentArea2.equals("")) {
-	    	where.append("AND rentarea.value <= ").append(rentArea2).append(" ");
+	    if (buildingSearchBuilder.getDistrictId() != null && !buildingSearchBuilder.getDistrictId().trim().isEmpty()) {
+	        where.append("AND b.districtid = ").append(buildingSearchBuilder.getDistrictId()).append(" ");
+	    }
+	    if (buildingSearchBuilder.getWard() != null && !buildingSearchBuilder.getWard().trim().isEmpty()) {
+	        where.append("AND b.ward LIKE '%").append(buildingSearchBuilder.getWard()).append("%' ");
+	    }
+	    if (buildingSearchBuilder.getStreet() != null && !buildingSearchBuilder.getStreet().trim().isEmpty()) {
+	        where.append("AND b.street LIKE '%").append(buildingSearchBuilder.getStreet()).append("%' ");
+	    }
+	    if (buildingSearchBuilder.getNumberOfBasement() != null) {
+	        where.append("AND b.numberofbasement = ").append(buildingSearchBuilder.getNumberOfBasement()).append(" ");
+	    }
+	    if (buildingSearchBuilder.getManagerName() != null && !buildingSearchBuilder.getManagerName().trim().isEmpty()) {
+	        where.append("AND b.managername LIKE '%").append(buildingSearchBuilder.getManagerName()).append("%' ");
+	    }
+	    if (buildingSearchBuilder.getManagerPhoneNumber() != null && !buildingSearchBuilder.getManagerPhoneNumber().trim().isEmpty()) {
+	        where.append("AND b.managerphonenumber LIKE '%").append(buildingSearchBuilder.getManagerPhoneNumber()).append("%' ");
+	    }
+		
+
+	    if(buildingSearchBuilder.getRentArea1() != null) {
+	    	where.append("AND rentarea.value >= ").append(buildingSearchBuilder.getRentArea1()).append(" ");
+	    }
+	    if(buildingSearchBuilder.getRentArea2() != null) {
+	    	where.append("AND rentarea.value <= ").append(buildingSearchBuilder.getRentArea2()).append(" ");
+	    }
+	    
+	    if (buildingSearchBuilder.getRentPrice1() != null) {
+	        where.append("AND b.rentprice >= ").append(buildingSearchBuilder.getRentPrice1()).append(" ");
+	    }
+	    if (buildingSearchBuilder.getRentPrice2() != null) {
+	        where.append("AND b.rentprice <= ").append(buildingSearchBuilder.getRentPrice2()).append(" ");
 	    }
 	    
 	    Object staffId = buildingSearchBuilder.getStaffId();
@@ -84,11 +106,7 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
 	}
 
 	public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {
-		StringBuilder sql = new StringBuilder("SELECT b.id, b.name, b.numberofbasement, b.ward, b.street, b.direction, b.level, "
-	            + "b.managername, b.managerphonenumber, b.floorarea, b.districtid, b.rentprice, "
-	            + "b.servicefee, b.brokeragefee, "
-	            + "(SELECT GROUP_CONCAT(ra.value) FROM rentarea ra WHERE ra.buildingid = b.id) as rentarea "
-	            + "FROM building b ");
+		StringBuilder sql = new StringBuilder("SELECT b.* FROM building b ");
 		joinTable(buildingSearchBuilder, sql);
 		StringBuilder where = new StringBuilder("WHERE 1 = 1 ");
 		query(buildingSearchBuilder, where);

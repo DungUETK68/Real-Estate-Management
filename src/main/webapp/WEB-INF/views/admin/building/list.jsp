@@ -57,17 +57,18 @@
                             </div>
 
                             <div class="widget-body" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;'">
-                            <div class="widget-main" id="listForm">
+                            <div class="widget-main">
+                                <form:form modelAttribute="modelSearch" id="listForm" action="/admin/building-list" method="GET">
                                 <div class="row">
                                     <div class="form-group">
                                         <div class="col-xs-12">
                                             <div class="col-xs-6">
                                                 <label class="name">Tên tòa nhà</label>
-                                                <input id="name" type="text" class="form-control" name="name" />
+                                                <input id="name" type="text" class="form-control" name="name" value="${modelSearch.name}" />
                                             </div>
                                             <div class="col-xs-6">
                                                 <label class="name">Diện tích sàn</label>
-                                                <input type="number" class="form-control" />
+                                                <input type="number" class="form-control" name="floorArea" value="${modelSearch.floorArea}" />
                                             </div>
                                         </div>
                                     </div>
@@ -76,20 +77,20 @@
                                         <div class="col-xs-12">
                                             <div class="col-xs-2">
                                                 <label class="name">Quận</label>
-                                                <select class="form-control">
+                                                <select class="form-control" name="district">
                                                     <option value="">Chọn quận</option>
-                                                    <option value="">Quận 1</option>
-                                                    <option value="">Quận 2</option>
-                                                    <option value="">Quận 3</option>
+                                                    <option value="Quan_1">Quận 1</option>
+                                                    <option value="Quan_2">Quận 2</option>
+                                                    <option value="Quan_3">Quận 3</option>
                                                 </select>
                                             </div>
                                             <div class="col-xs-5">
                                                 <label class="name">Phường</label>
-                                                <input type="text" class="form-control" />
+                                                <input type="text" class="form-control" name="ward" value="${modelSearch.ward}" />
                                             </div>
                                             <div class="col-xs-5">
                                                 <label class="name">Đường</label>
-                                                <input type="text" class="form-control" />
+                                                <input type="text" class="form-control" name="street" value="${modelSearch.street}" />
                                             </div>
                                         </div>
                                     </div>
@@ -98,15 +99,15 @@
                                         <div class="col-xs-12">
                                             <div class="col-xs-4">
                                                 <label class="name">Số tầng hầm</label>
-                                                <input type="text" class="form-control" />
+                                                <input type="text" class="form-control" name="numberOfBasement" value="${modelSearch.numberOfBasement}" />
                                             </div>
                                             <div class="col-xs-4">
                                                 <label class="name">Hướng</label>
-                                                <input type="text" class="form-control" />
+                                                <input type="text" class="form-control" name="direction" value="${modelSearch.direction}" />
                                             </div>
                                             <div class="col-xs-4">
                                                 <label class="name">Hạng</label>
-                                                <input type="number" class="form-control" />
+                                                <input type="number" class="form-control" name="level" value="${modelSearch.level}" />
                                             </div>
                                         </div>
                                     </div>
@@ -115,19 +116,19 @@
                                         <div class="col-xs-12">
                                             <div class="col-xs-3">
                                                 <label class="name">Diện tích từ</label>
-                                                <input type="number" class="form-control" />
+                                                <input type="number" class="form-control" name="areaFrom" value="${modelSearch.areaFrom}" />
                                             </div>
                                             <div class="col-xs-3">
                                                 <label class="name">Diện tích đến</label>
-                                                <input type="number" class="form-control" />
+                                                <input type="number" class="form-control" name="areaTo" value="${modelSearch.areaTo}" />
                                             </div>
                                             <div class="col-xs-3">
                                                 <label class="name">Giá thuê từ</label>
-                                                <input type="number" class="form-control" />
+                                                <input type="number" class="form-control" name="rentPriceFrom" value="${modelSearch.rentPriceFrom}" />
                                             </div>
                                             <div class="col-xs-3">
                                                 <label class="name">Giá thuê đến</label>
-                                                <input type="number" class="form-control" />
+                                                <input type="number" class="form-control" name="rentPriceTo" value="${modelSearch.rentPriceTo}" />
                                             </div>
                                         </div>
                                     </div>
@@ -136,21 +137,21 @@
                                         <div class="col-xs-12">
                                             <div class="col-xs-5">
                                                 <label class="name">Tên quản lý</label>
-                                                <input type="text" class="form-control" />
+                                                <input type="text" class="form-control" name="managerName" value="${modelSearch.managerName}" />
                                             </div>
 
                                             <div class="col-xs-5">
                                                 <label class="name">Số điện thoại quản lý</label>
-                                                <input type="text" class="form-control" />
+                                                <input type="text" class="form-control" name="managerPhone" value="${modelSearch.managerPhone}" />
                                             </div>
 
                                             <div class="col-xs-2">
                                                 <label class="name">Nhân viên</label>
                                                 <select class="form-control">
                                                     <option value="">Chọn nhân viên</option>
-                                                    <option value="">Nhân viên 1</option>
-                                                    <option value="">Nhân viên 2</option>
-                                                    <option value="">Nhân viên 3</option>
+                                                    <option value="1">Nhân viên 1</option>
+                                                    <option value="2">Nhân viên 2</option>
+                                                    <option value="3">Nhân viên 3</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -159,18 +160,19 @@
                                     <div class="form-group">
                                         <div class="col-xs-12">
                                             <div class="col-xs-6">
-                                                <label class="checkbox-inline"><input type="checkbox">Nội thất</label>
-                                                <label class="checkbox-inline"><input type="checkbox">Nguyên căn</label>
-                                                <label class="checkbox-inline"><input type="checkbox">Tầng trệt</label>
+                                                <label class="checkbox-inline"><input type="checkbox" name="typeCode" value="noi-that">Nội thất</label>
+                                                <label class="checkbox-inline"><input type="checkbox" name="typeCode" value="nguyen-can">Nguyên căn</label>
+                                                <label class="checkbox-inline"><input type="checkbox" name="typeCode" value="tang-tret">Tầng trệt</label>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                </form:form>
 
-                                    <div class="form-group">
-                                        <div class="col-xs-12">
-                                            <div class="col-xs-6">
-                                                <button class="btn btn-danger" id="btnSearchBuilding">Tìm kiếm</button>
-                                            </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <div class="col-xs-6">
+                                            <button class="btn btn-danger" id="btnSearchBuilding">Tìm kiếm</button>
                                         </div>
                                     </div>
                                 </div>
@@ -362,6 +364,11 @@
         data['staffs'] = staffs;
         console.log("OK");
     })
+
+    $('#btnSearchBuilding').click(function(e) {
+       e.preventDefault();
+       $('#listForm').submit();
+    });
 </script>
 </body>
 </html>

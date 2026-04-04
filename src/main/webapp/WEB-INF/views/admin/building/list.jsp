@@ -248,9 +248,9 @@
                                         <i class="ace-icon fa fa-check bigger-120"></i>
                                     </button>
 
-                                    <button class="btn btn-xs btn-info">
+                                    <a class="btn btn-xs btn-info" title="Sửa tòa nhà" href="/admin/building-edit">
                                         <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                    </button>
+                                    </a>
 
                                     <button class="btn btn-xs btn-danger">
                                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
@@ -282,9 +282,9 @@
                                         <i class="ace-icon fa fa-check bigger-120"></i>
                                     </button>
 
-                                    <button class="btn btn-xs btn-info">
+                                    <a class="btn btn-xs btn-info" title="Sửa tòa nhà" href="/admin/building-edit">
                                         <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                    </button>
+                                    </a>
 
                                     <button class="btn btn-xs btn-danger">
                                         <i class="ace-icon fa fa-trash-o bigger-120"></i>

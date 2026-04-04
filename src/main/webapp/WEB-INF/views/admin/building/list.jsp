@@ -227,30 +227,31 @@
                         </thead>
 
                         <tbody>
+                        <c:forEach var="item" items="${buildingList}">
                         <tr>
                             <td class="center">
                                 <label class="pos-rel">
-                                    <input type="checkbox" class="ace">
+                                    <input type="checkbox" class="ace" name="checkList" value="${item.id}">
                                     <span class="lbl"></span>
                                 </label>
                             </td>
 
-                            <td>ACE Building</td>
-                            <td>ACE Building</td>
-                            <td>ACE Building</td>
-                            <td>ACE Building</td>
-                            <td>ACE Building</td>
-                            <td>$45</td>
-                            <td class="hidden-480">3,330</td>
-                            <td>Feb 12</td>
-                            <td>Expiring</td>
+                            <td>${item.name}</td>
+                            <td>${item.address}</td>
+                            <td>${item.numberOfBasement}</td>
+                            <td>${item.managerName}</td>
+                            <td>${item.managerPhone}</td>
+                            <td>${item.floorArea}</td>
+                            <td>${item.id}</td>
+                            <td>${item.id}</td>
+                            <td>${item.id}</td>
                             <td>
                                 <div class="hidden-sm hidden-xs btn-group">
-                                    <button class="btn btn-xs btn-success" title="Giao tòa nhà" onclick="assignmentBuilding(1)">
+                                    <button class="btn btn-xs btn-success" title="Giao tòa nhà" onclick="assignmentBuilding(${item.id})">
                                         <i class="ace-icon fa fa-check bigger-120"></i>
                                     </button>
 
-                                    <a class="btn btn-xs btn-info" title="Sửa tòa nhà" href="/admin/building-edit">
+                                    <a class="btn btn-xs btn-info" title="Sửa tòa nhà" href="/admin/building-edit-${item.id}">
                                         <i class="ace-icon fa fa-pencil bigger-120"></i>
                                     </a>
 
@@ -260,40 +261,7 @@
                                 </div>
                             </td>
                         </tr>
-
-                        <tr>
-                            <td class="center">
-                                <label class="pos-rel">
-                                    <input type="checkbox" class="ace">
-                                    <span class="lbl"></span>
-                                </label>
-                            </td>
-
-                            <td>ACE Building</td>
-                            <td>ACE Building</td>
-                            <td>ACE Building</td>
-                            <td>ACE Building</td>
-                            <td>ACE Building</td>
-                            <td>$45</td>
-                            <td class="hidden-480">3,330</td>
-                            <td>Feb 12</td>
-                            <td>Expiring</td>
-                            <td>
-                                <div class="hidden-sm hidden-xs btn-group">
-                                    <button class="btn btn-xs btn-success" title="Giao tòa nhà" onclick="assignmentBuilding(2)">
-                                        <i class="ace-icon fa fa-check bigger-120"></i>
-                                    </button>
-
-                                    <a class="btn btn-xs btn-info" title="Sửa tòa nhà" href="/admin/building-edit">
-                                        <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                    </a>
-
-                                    <button class="btn btn-xs btn-danger">
-                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div> <!-- /.span -->

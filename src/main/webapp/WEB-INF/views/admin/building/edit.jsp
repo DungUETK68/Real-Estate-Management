@@ -44,11 +44,12 @@
                 <!-- /.page-header -->
 
                 <div class="row" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    <form:form modelAttribute="buildingEdit" id="formList" action="admin/building/edit" method="GET">
                     <div class="col-xs-12">
                         <form class="form-horizontal" role="form" id="form-edit">
                             <div class="form-group">
                                 <label class="col-xs-3">Tên tòa nhà</label>
-                                <div class="col-xs-9"><input class="form-control" type="text" id="name" name="name"></div>
+                                <div class="col-xs-9"><input class="form-control" type="text" id="name" name="name" value="${buildingEdit.name}"></div>
                             </div>
 
                             <div class="form-group">
@@ -64,37 +65,37 @@
 
                             <div class="form-group">
                                 <label class="col-xs-3">Phường</label>
-                                <div class="col-xs-9"><input class="form-control" type="text" id="ward" name="ward"></div>
+                                <div class="col-xs-9"><input class="form-control" type="text" id="ward" name="ward" value="${buildingEdit.ward}"></div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-xs-3">Đường</label>
-                                <div class="col-xs-9"><input class="form-control" type="text" id="street" name="street"></div>
+                                <div class="col-xs-9"><input class="form-control" type="text" id="street" name="street" value="${buildingEdit.street}"></div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-xs-3">Kết cấu</label>
-                                <div class="col-xs-9"><input class="form-control" type="text" id="structure" name="structure"></div>
-                            </div>
+<%--                            <div class="form-group">--%>
+<%--                                <label class="col-xs-3">Kết cấu</label>--%>
+<%--                                <div class="col-xs-9"><input class="form-control" type="text" id="structure" name="structure"></div>--%>
+<%--                            </div>--%>
 
                             <div class="form-group">
                                 <label class="col-xs-3">Số tầng hầm</label>
-                                <div class="col-xs-9"><input class="form-control" type="number" id="numberOfBasement" name="numberOfBasement"></div>
+                                <div class="col-xs-9"><input class="form-control" type="number" id="numberOfBasement" name="numberOfBasement" value="${buildingEdit.numberOfBasement}"></div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-xs-3">Diện tích sàn</label>
-                                <div class="col-xs-9"><input class="form-control" type="number" id="floorArea" name="floorArea"></div>
+                                <div class="col-xs-9"><input class="form-control" type="number" id="floorArea" name="floorArea" value="${buildingEdit.floorArea}"></div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-xs-3">Hướng</label>
-                                <div class="col-xs-9"><input class="form-control" type="text" id="direction" name="direction"></div>
+                                <div class="col-xs-9"><input class="form-control" type="text" id="direction" name="direction" value="${buildingEdit.direction}"></div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-xs-3">Hạng</label>
-                                <div class="col-xs-9"><input class="form-control" type="number" id="level" name="level"></div>
+                                <div class="col-xs-9"><input class="form-control" type="number" id="level" name="level" value="${buildingEdit.level}"></div>
                             </div>
 
                             <div class="form-group">
@@ -197,12 +198,19 @@
                             <div class="col-xs-3"></div>
                             <div class="col-xs-9">
                                 <div class="pull-left">
-                                    <button class="btn btn-info" id="btnAddBuilding">Thêm tòa nhà</button>
-                                    <button class="btn btn-danger">Hủy thao tác</button>
+                                    <c:if test="${not empty buildingEdit.id}">
+                                        <button class="btn btn-info" id="btnAddBuilding">Sửa tòa nhà</button>
+                                        <button class="btn btn-danger">Hủy thao tác</button>
+                                    </c:if>
+                                    <c:if test="${empty buildingEdit.id}">
+                                        <button class="btn btn-info" id="btnAddBuilding">Thêm tòa nhà</button>
+                                        <button class="btn btn-danger">Hủy thao tác</button>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </form:form>
                 </div>
             </div> <!-- /.page-content -->
         </div>

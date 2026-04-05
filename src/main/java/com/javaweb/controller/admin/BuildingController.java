@@ -2,9 +2,13 @@ package com.javaweb.controller.admin;
 
 
 
+import com.javaweb.enums.District;
+import com.javaweb.enums.TypeCode;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
+import com.javaweb.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,12 +22,17 @@ import java.util.List;
 
 @Controller(value="buildingControllerOfAdmin")
 public class BuildingController {
+    @Autowired
+    private IUserService userService;
 
     @GetMapping(value="/admin/building-list")
     public ModelAndView buildingList(@ModelAttribute BuildingSearchRequest buildingSearchRequest, HttpServletRequest request){
         ModelAndView mav = new ModelAndView("admin/building/list");
         mav.addObject("modelSearch", buildingSearchRequest);
-        //TODO: Xuong DB lay data
+        mav.addObject("listDistricts", District.listDistricts());
+        mav.addObject("listStaffs",userService.getStaffs());
+        mav.addObject("listTypes", TypeCode.listTypes());
+        //TODO: Xuong DB lay data (de thuc hien hien thi danh sach toa nha)
         List<BuildingSearchResponse> responseList = new ArrayList<>();
         BuildingSearchResponse item1 = new BuildingSearchResponse();
         item1.setId(3L);

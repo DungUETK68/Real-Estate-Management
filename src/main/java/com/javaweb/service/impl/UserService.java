@@ -18,8 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -82,6 +81,15 @@ public class UserService implements IUserService {
         return userRepository.countTotalItem();
     }
 
+    @Override
+    public Map<Long, String> getStaffs() {
+        Map<Long, String> listStaffs = new HashMap<>();
+        List<UserEntity> staffs = userRepository.findByStatusAndRoles_Code(1, "staff");
+        for(UserEntity item : staffs){
+            listStaffs.put(item.getId(), item.getUserName());
+        }
+        return listStaffs;
+    }
 
 
     @Override

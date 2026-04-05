@@ -77,12 +77,10 @@
                                         <div class="col-xs-12">
                                             <div class="col-xs-2">
                                                 <label class="name">Quận</label>
-                                                <select class="form-control" name="district">
-                                                    <option value="">Chọn quận</option>
-                                                    <option value="Quan_1">Quận 1</option>
-                                                    <option value="Quan_2">Quận 2</option>
-                                                    <option value="Quan_3">Quận 3</option>
-                                                </select>
+                                                <form:select class="form-control" path="district">
+                                                    <form:option value="">Chọn quận</form:option>
+                                                    <form:options items="${listDistricts}"/>
+                                                </form:select>
                                             </div>
                                             <div class="col-xs-5">
                                                 <label class="name">Phường</label>
@@ -147,12 +145,10 @@
 
                                             <div class="col-xs-2">
                                                 <label class="name">Nhân viên</label>
-                                                <select class="form-control">
-                                                    <option value="">Chọn nhân viên</option>
-                                                    <option value="1">Nhân viên 1</option>
-                                                    <option value="2">Nhân viên 2</option>
-                                                    <option value="3">Nhân viên 3</option>
-                                                </select>
+                                                <form:select class="form-control" path="staffId">
+                                                    <form:option value="">Chọn nhân viên</form:option>
+                                                    <form:options items="${listStaffs}"/>
+                                                </form:select>
                                             </div>
                                         </div>
                                     </div>
@@ -160,9 +156,7 @@
                                     <div class="form-group">
                                         <div class="col-xs-12">
                                             <div class="col-xs-6">
-                                                <label class="checkbox-inline"><input type="checkbox" name="typeCode" value="noi-that">Nội thất</label>
-                                                <label class="checkbox-inline"><input type="checkbox" name="typeCode" value="nguyen-can">Nguyên căn</label>
-                                                <label class="checkbox-inline"><input type="checkbox" name="typeCode" value="tang-tret">Tầng trệt</label>
+                                                <form:checkboxes items="${listTypes}" path="typeCode"/>
                                             </div>
                                         </div>
                                     </div>

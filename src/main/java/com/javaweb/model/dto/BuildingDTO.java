@@ -13,13 +13,10 @@ public class BuildingDTO extends AbstractDTO{
     private Long numberOfBasement;
     private String direction;
     private Long level;
-    private Long areaFrom;
-    private Long areaTo;
-    private Long rentPriceFrom;
-    private Long rentPriceTo;
+    private String rentArea;
+    private Long rentPrice;
     private String managerName;
     private String managerPhone;
-    private Long staffId;
     private List<String> typeCode;
 
     public String getName() {
@@ -86,36 +83,20 @@ public class BuildingDTO extends AbstractDTO{
         this.level = level;
     }
 
-    public Long getAreaFrom() {
-        return areaFrom;
+    public String getRentArea() {
+        return rentArea;
     }
 
-    public void setAreaFrom(Long areaFrom) {
-        this.areaFrom = areaFrom;
+    public void setRentArea(String rentArea) {
+        this.rentArea = rentArea;
     }
 
-    public Long getAreaTo() {
-        return areaTo;
+    public Long getRentPrice() {
+        return rentPrice;
     }
 
-    public void setAreaTo(Long areaTo) {
-        this.areaTo = areaTo;
-    }
-
-    public Long getRentPriceFrom() {
-        return rentPriceFrom;
-    }
-
-    public void setRentPriceFrom(Long rentPriceFrom) {
-        this.rentPriceFrom = rentPriceFrom;
-    }
-
-    public Long getRentPriceTo() {
-        return rentPriceTo;
-    }
-
-    public void setRentPriceTo(Long rentPriceTo) {
-        this.rentPriceTo = rentPriceTo;
+    public void setRentPrice(Long rentPrice) {
+        this.rentPrice = rentPrice;
     }
 
     public String getManagerName() {
@@ -132,14 +113,6 @@ public class BuildingDTO extends AbstractDTO{
 
     public void setManagerPhone(String managerPhone) {
         this.managerPhone = managerPhone;
-    }
-
-    public Long getStaffId() {
-        return staffId;
-    }
-
-    public void setStaffId(Long staffId) {
-        this.staffId = staffId;
     }
 
     public List<String> getTypeCode() {

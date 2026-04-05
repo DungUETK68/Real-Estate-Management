@@ -44,9 +44,9 @@
                 <!-- /.page-header -->
 
                 <div class="row" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                    <form:form modelAttribute="buildingEdit" id="formList" action="admin/building/edit" method="GET">
+                    <form:form modelAttribute="buildingEdit" id="listForm" action="admin/building/edit" method="GET">
                     <div class="col-xs-12">
-                        <form class="form-horizontal" role="form" id="form-edit">
+                        <form class="form-horizontal" role="form">
                             <div class="form-group">
                                 <label class="col-xs-3">Tên tòa nhà</label>
                                 <div class="col-xs-9"><input class="form-control" type="text" id="name" name="name" value="${buildingEdit.name}"></div>
@@ -55,12 +55,11 @@
                             <div class="form-group">
                                 <label class="col-xs-3">Quận</label>
                                 <div class="col-xs-2">
-                                    <select id="districtId" class="form-control" name="districtId">
-                                        <option value="">Chọn quận</option>
-                                        <option value="1">Quận 1</option>
-                                        <option value="2">Quận 2</option>
-                                        <option value="3">Quận 3</option>
-                                    </select></div>
+                                    <form:select class="form-control" path="district">
+                                        <form:option value="">Chọn quận</form:option>
+                                        <form:options items="${listDistricts}"/>
+                                    </form:select>
+                                    </div>
                             </div>
 
                             <div class="form-group">
@@ -192,28 +191,65 @@
                               <label class="col-xs-3">Ghi chú</label>
                               <div class="col-xs-9"><input class="form-control" type="text" id="name" name="name"></div>
                             </div> -->
-                        </form>
 
-                        <div class="col-xs-12">
-                            <div class="col-xs-3"></div>
-                            <div class="col-xs-9">
-                                <div class="pull-left">
-                                    <c:if test="${not empty buildingEdit.id}">
-                                        <button class="btn btn-info" id="btnAddBuilding">Sửa tòa nhà</button>
-                                        <button class="btn btn-danger">Hủy thao tác</button>
-                                    </c:if>
-                                    <c:if test="${empty buildingEdit.id}">
-                                        <button class="btn btn-info" id="btnAddBuilding">Thêm tòa nhà</button>
-                                        <button class="btn btn-danger">Hủy thao tác</button>
-                                    </c:if>
+                            <div class="col-xs-12">
+                                <div class="col-xs-3"></div>
+                                <div class="col-xs-9">
+                                    <div class="pull-left">
+                                        <c:if test="${not empty buildingEdit.id}">
+                                            <button class="btn btn-info" id="btnAddOrUpdateBuilding">Sửa tòa nhà</button>
+                                            <button class="btn btn-danger" id="btnCancel">Hủy thao tác</button>
+                                        </c:if>
+                                        <c:if test="${empty buildingEdit.id}">
+                                            <button class="btn btn-info" id="btnAddOrUpdateBuilding">Thêm tòa nhà</button>
+                                            <button class="btn btn-danger" id="btnCancel">Hủy thao tác</button>
+                                        </c:if>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+
+                            <form:hidden path="id" id="buildingId"/>
+                        </form>
                     </div>
                     </form:form>
                 </div>
             </div> <!-- /.page-content -->
         </div>
     </div> <!-- /.main-content -->
+
+    <script>
+        $('#btnAddOrUpdateBuilding').click(function(){
+            var data = {};
+            var typeCode = [];
+            var formData = $('#listForm').serializeArray();
+            $.each(formData, function(i, v) {
+                if (v.name != 'typeCode') {
+                    data["" + v.name + ""] = v.value;
+                } else {
+                    typeCode.push(v.value);
+                }
+            });
+            data['typeCode'] = typeCode;
+
+            //call api
+            $.ajax({
+                type: "POST",
+                url: "/admin/building",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                dataType: "JSON",
+                success: function(respond) {
+                    console.log("Success");
+                },
+                error: function(respond) {
+                    console.log(respond);
+                }
+            });
+        });
+
+        $('#btnCancel').click(function(){
+            window.location.href = "/admin/building-list";
+        })
+    </script>
 </body>
 </html>

@@ -57,6 +57,8 @@ public class BuildingController {
     @GetMapping(value="/admin/building-edit")
     public ModelAndView buildingEdit(@ModelAttribute BuildingDTO buildingDTO, HttpServletRequest request){
         ModelAndView mav = new ModelAndView("admin/building/edit");
+        mav.addObject("listDistricts", District.listDistricts());
+        mav.addObject("listTypes", TypeCode.listTypes());
         return mav;
     }
 

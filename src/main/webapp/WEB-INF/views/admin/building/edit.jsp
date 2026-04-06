@@ -230,7 +230,12 @@
                 }
             });
             data['typeCode'] = typeCode;
+            if (typeCode != "") {
+                addOrUpdateBuilding(data);
+            }
+        });
 
+        function addOrUpdateBuilding(data){
             //call api
             $.ajax({
                 type: "POST",
@@ -245,7 +250,7 @@
                     console.log(respond);
                 }
             });
-        });
+        }
 
         $('#btnCancel').click(function(){
             window.location.href = "/admin/building-list";

@@ -183,7 +183,7 @@
                                     </svg>
                                 </button>
                             </a>
-                            <button class="btn btn-danger" title="Xóa tòa nhà">
+                            <button class="btn btn-danger" title="Xóa tòa nhà" id="btnDeleteBuildings">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building-dash" viewBox="0 0 16 16">
                                     <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M11 12h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1"/>
                                     <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6.5a.5.5 0 0 1-1 0V1H3v14h3v-2.5a.5.5 0 0 1 .5-.5H8v4H3a1 1 0 0 1-1-1z"/>
@@ -198,7 +198,7 @@
             <!-- Bảng danh sách -->
             <div class="row">
                 <div class="col-xs-12">
-                    <table id="simple-table" style="margin: 3em 0 0;" class="table table-striped table-bordered table-hover">
+                    <table id="tableList" style="margin: 3em 0 0;" class="table table-striped table-bordered table-hover">
                         <thead>
                         <tr>
                             <th class="center">
@@ -249,7 +249,7 @@
                                         <i class="ace-icon fa fa-pencil bigger-120"></i>
                                     </a>
 
-                                    <button class="btn btn-xs btn-danger">
+                                    <button class="btn btn-xs btn-danger" title="Xóa tòa nhà" onclick="deleteBuilding(${item.id})">
                                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                     </button>
                                 </div>
@@ -331,6 +331,35 @@
        e.preventDefault();
        $('#listForm').submit();
     });
+
+    function deleteBuilding(id) {
+        var building = [id];
+        deleteBuildings(id);
+    }
+
+    $('#btnDeleteBuildings').click(function(e) {
+        e.preventDefault();
+        var buildingIds = $('#tableList').find('tbody input[type = checkbox]:checked').map(function() {
+            return $(this).val();
+        }).get();
+        deleteBuildings(buildingIds);
+    })
+
+    function deleteBuildings(data) {
+        $.ajax({
+            type: "DELETE",
+            url: "/admin/building/" + data,
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: "JSON",
+            success: function(respond) {
+                console.log("Success");
+            },
+            error: function(respond) {
+                console.log(respond);
+            }
+        });
+    }
 </script>
 </body>
 </html>

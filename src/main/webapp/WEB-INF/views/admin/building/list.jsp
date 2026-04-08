@@ -283,21 +283,7 @@
                     </thead>
 
                     <tbody>
-                    <tr>
-                        <td class="center">
-                            <input type="checkbox" id="checkbox_1" value="1">
-                        </td>
 
-                        <td>Nhân viên 1</td>
-                    </tr>
-
-                    <tr>
-                        <td class="center">
-                            <input type="checkbox" id="checkbox_2" value="2">
-                        </td>
-
-                        <td>Nhân viên 2</td>
-                    </tr>
                     </tbody>
                 </table>
                 <input type="hidden" id="buildingId" name="buildingId" value="1">
@@ -314,6 +300,33 @@
 <script>
     function assignmentBuilding(buildingId) {
         $('#assignmentBuildingModal').modal();
+        loadStaff(buildingId);
+        $('#buildingId').val(buildingId);
+    }
+
+    function loadStaff(buildingId) {
+        $.ajax({
+            type: "GET",
+            url: "/admin/building/" + buildingId + '/staffs',
+            // data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: "JSON",
+            success: function(response) {
+                var row = '';
+                $.each(response.data, function(index, item) {
+                    row += '<tr>';
+                    row += '<td class = "text-center"><input type="checkbox" value=' + item.staffId + 'id="checkbox_' + item.staffId + '" class="check-box-element"' + item.checked + '/></td>';
+                    row += '<td class = "text-center">' + item.fullName + '</td>'
+                    row += '<tr>';
+                })
+
+                $('#staffList tbody').html(row);
+            },
+            error: function(response) {
+                console.log(response);
+                window.location.href = "<c:url value = "/admin/building-list?message=error"/>";
+            }
+        });
     }
 
     $('#btnAssignmentBuilding').click(function(e) {

@@ -65,7 +65,7 @@ public class BuildingController {
         //TODO: Xuong bd de tim building theo id de tra ra giao dien
         BuildingDTO buildingDTO = new BuildingDTO();
         buildingDTO.setId(id);
-        buildingDTO.setName("Phung Tien Dung");
+        buildingDTO.setName("Phung Tien Dung Master Building");
         mav.addObject("buildingEdit", buildingDTO);
         return mav;
     }

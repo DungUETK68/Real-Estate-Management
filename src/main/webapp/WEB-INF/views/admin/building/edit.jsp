@@ -232,6 +232,8 @@
             data['typeCode'] = typeCode;
             if (typeCode != "") {
                 addOrUpdateBuilding(data);
+            } else {
+                window.location.href = "<c:url value = "/admin/building-edit?typeCode=required"/>";
             }
         });
 

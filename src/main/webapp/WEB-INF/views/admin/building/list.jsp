@@ -283,10 +283,9 @@
                     </thead>
 
                     <tbody>
-
                     </tbody>
                 </table>
-                <input type="hidden" id="buildingId" name="buildingId" value="1">
+                <input type="hidden" id="buildingId" name="buildingId" value="">
             </div>
 
             <div class="modal-footer">
@@ -310,12 +309,12 @@
             url: "/admin/building/" + buildingId + '/staffs',
             // data: JSON.stringify(data),
             contentType: "application/json",
-            dataType: "JSON",
+            dataType: "json",
             success: function(response) {
                 var row = '';
                 $.each(response.data, function(index, item) {
                     row += '<tr>';
-                    row += '<td class = "text-center"><input type="checkbox" value=' + item.staffId + 'id="checkbox_' + item.staffId + '" class="check-box-element"' + item.checked + '/></td>';
+                    row += '<td class = "text-center"><input type="checkbox" value=' + item.staffId + ' id="checkbox_' + item.staffId + '" class="check-box-element"' + item.checked + '/></td>';
                     row += '<td class = "text-center">' + item.fullName + '</td>'
                     row += '<tr>';
                 })
@@ -332,13 +331,34 @@
     $('#btnAssignmentBuilding').click(function(e) {
         e.preventDefault();
         var data = {};
-        data['building'] = $('#buildingId').val();
+        data['buildingId'] = $('#buildingId').val();
         var staffs = $('#staffList').find('tbody input[type = checkbox]:checked').map(function() {
             return $(this).val();
         }).get();
         data['staffs'] = staffs;
+        if(data['staffs'] != '') {
+            assignment(data);
+        }
         console.log("OK");
     })
+
+    function assignment(data) {
+        $.ajax({
+            type: "POST",
+            url: "/admin/building/assignment",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            // dataType: "json",
+            success: function(response) {
+                console.info("Success");
+            },
+            error: function(response) {
+                console.info("Error");
+                window.location.href = "<c:url value = "/admin/building-list?message=error"/>";
+                console.log(response);
+            }
+        });
+    }
 
     $('#btnSearchBuilding').click(function(e) {
        e.preventDefault();
@@ -364,7 +384,7 @@
             url: "/admin/building/" + data,
             data: JSON.stringify(data),
             contentType: "application/json",
-            dataType: "JSON",
+            dataType: "json",
             success: function(respond) {
                 console.log("Success");
             },

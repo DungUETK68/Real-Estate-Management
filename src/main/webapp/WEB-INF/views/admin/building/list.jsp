@@ -35,10 +35,6 @@
                 <div class="page-header">
                     <h1>
                         Danh sách tòa nhà
-                        <small>
-                            <i class="ace-icon fa fa-angle-double-right"></i>
-                            overview &amp; stats
-                        </small>
                     </h1>
                 </div>
                 <!-- /.page-header -->
@@ -300,7 +296,7 @@
     function assignmentBuilding(buildingId) {
         $('#assignmentBuildingModal').modal();
         loadStaff(buildingId);
-        $('#buildingId').val(buildingId);
+        $('#buildingId').val(uildingId);
     }
 
     function loadStaff(buildingId) {

@@ -68,6 +68,8 @@ public class BuildingController {
         buildingDTO.setId(id);
         buildingDTO.setName("Phung Tien Dung Master Building");
         mav.addObject("buildingEdit", buildingDTO);
+        mav.addObject("listDistricts", District.listDistricts());
+        mav.addObject("listTypes", TypeCode.listTypes());
         return mav;
     }
 }

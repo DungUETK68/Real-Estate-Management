@@ -171,15 +171,7 @@
                             <div class="form-group">
                                 <label class="col-xs-3">Loại tòa nhà</label>
                                 <div class="col-xs-9">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" id="typeCode" name="typeCode" value="noi-that">Nội thất
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" id="typeCode" name="typeCode" value="nguyen-can">Nguyên căn
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" id="typeCode" name="typeCode" value="tang-tret">Tầng trệt
-                                    </label>
+                                    <form:checkboxes items="${listTypes}" path="typeCode"/>
                                 </div>
                             </div>
 

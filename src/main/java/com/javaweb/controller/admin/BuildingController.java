@@ -10,6 +10,8 @@ import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.service.IBuildingService;
 import com.javaweb.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,15 +28,24 @@ public class BuildingController {
     private IBuildingService buildingService;
 
     @GetMapping(value="/admin/building-list")
-    public ModelAndView buildingList(@ModelAttribute BuildingSearchRequest buildingSearchRequest, HttpServletRequest request){
+    public ModelAndView buildingList(@ModelAttribute BuildingSearchRequest buildingSearchRequest, @RequestParam(value = "page", defaultValue = "1") int page, HttpServletRequest request){
         ModelAndView mav = new ModelAndView("admin/building/list");
         mav.addObject("modelSearch", buildingSearchRequest);
         mav.addObject("listDistricts", District.listDistricts());
         mav.addObject("listStaffs",userService.getStaffs());
         mav.addObject("listTypes", TypeCode.listTypes());
 
-        List<BuildingSearchResponse> responseList = buildingService.findAll(buildingSearchRequest);
+        int limit = 10;
+        Pageable pageable = PageRequest.of(page - 1, limit);
+
+        List<BuildingSearchResponse> responseList = buildingService.findAll(buildingSearchRequest, pageable);
         mav.addObject("buildingList", responseList);
+
+        int totalItem = buildingService.countTotalItems(buildingSearchRequest);
+        int totalPages = (int) Math.ceil((double) totalItem / limit);
+
+        mav.addObject("currentPage", page);
+        mav.addObject("totalPages", totalPages);
         return mav;
     }
 
@@ -50,9 +61,9 @@ public class BuildingController {
     @GetMapping(value="/admin/building-edit-{id}")
     public ModelAndView buildingEdit(@PathVariable("id") Long id, HttpServletRequest request){
         ModelAndView mav = new ModelAndView("admin/building/edit");
-
         BuildingDTO buildingDTO = buildingService.findById(id);
-
+        buildingDTO.setId(id);
+        buildingDTO.setName("Test name");
         mav.addObject("buildingEdit", buildingDTO);
         mav.addObject("listDistricts", District.listDistricts());
         mav.addObject("listTypes", TypeCode.listTypes());

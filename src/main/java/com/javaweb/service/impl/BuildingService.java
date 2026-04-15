@@ -13,6 +13,7 @@ import com.javaweb.repository.UserRepository;
 import com.javaweb.service.IBuildingService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -56,8 +57,8 @@ public class BuildingService implements IBuildingService {
     }
 
     @Override
-    public List<BuildingSearchResponse> findAll(BuildingSearchRequest buildingSearchRequest) {
-        List<BuildingEntity> entities = buildingRepository.findBuildings(buildingSearchRequest);
+    public List<BuildingSearchResponse> findAll(BuildingSearchRequest buildingSearchRequest, Pageable  pageable) {
+        List<BuildingEntity> entities = buildingRepository.findBuildings(buildingSearchRequest, pageable);
         List<BuildingSearchResponse> responses = new ArrayList<>();
 
         Map<String, String> districtsMap = District.listDistricts();
@@ -93,6 +94,11 @@ public class BuildingService implements IBuildingService {
         }
 
         return responses;
+    }
+
+    @Override
+    public int countTotalItems(BuildingSearchRequest buildingSearchRequest) {
+        return buildingRepository.countTotalItem(buildingSearchRequest);
     }
 
     @Override

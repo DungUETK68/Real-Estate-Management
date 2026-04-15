@@ -55,6 +55,7 @@
                             <div class="widget-body" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;'">
                             <div class="widget-main">
                                 <form:form modelAttribute="modelSearch" id="listForm" action="/admin/building-list" method="GET">
+                                <input type="hidden" id="page" name="page" value="${currentPage}">
                                 <div class="row">
                                     <div class="form-group">
                                         <div class="col-xs-12">
@@ -257,6 +258,17 @@
                         </tbody>
                     </table>
                 </div> <!-- /.span -->
+                <div class="row">
+                <div class="col-xs-12 text-center">
+                    <ul class="pagination">
+                        <c:forEach begin="1" end="${totalPages}" var="i">
+                            <li class="${currentPage == i ? 'active' : ''}">
+                                <a href="#" onclick="paging(${i})">${i}</a>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
             </div>
         </div> <!-- /.page-content -->
     </div> <!-- /.main-content -->
@@ -358,8 +370,14 @@
         });
     }
 
+    function paging(pageNumber) {
+        $('#page').val(pageNumber);
+        $('#listForm').submit();
+    }
+
     $('#btnSearchBuilding').click(function(e) {
        e.preventDefault();
+       $('#page').val(1);
        $('#listForm').submit();
     });
 

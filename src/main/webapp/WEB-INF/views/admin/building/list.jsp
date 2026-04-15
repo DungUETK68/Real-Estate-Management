@@ -211,6 +211,7 @@
                             <th>DT sàn</th>
                             <th>DT trống</th>
                             <th>DT thuê</th>
+                            <th>Phí dịch vụ</th>
                             <th>Phí mô giới</th>
                             <th>Thao tác</th>
                         </tr>
@@ -232,9 +233,10 @@
                             <td>${item.managerName}</td>
                             <td>${item.managerPhone}</td>
                             <td>${item.floorArea}</td>
-                            <td>${item.id}</td>
-                            <td>${item.id}</td>
-                            <td>${item.id}</td>
+                            <td>${item.emptyArea}</td>
+                            <td>${item.rentArea}</td>
+                            <td>${item.serviceFee}</td>
+                            <td>${item.brokerageFee}</td>
                             <td>
                                 <div class="hidden-sm hidden-xs btn-group">
                                     <button class="btn btn-xs btn-success" title="Giao tòa nhà" onclick="assignmentBuilding(${item.id})">
@@ -296,7 +298,7 @@
     function assignmentBuilding(buildingId) {
         $('#assignmentBuildingModal').modal();
         loadStaff(buildingId);
-        $('#buildingId').val(uildingId);
+        $('#buildingId').val(buildingId);
     }
 
     function loadStaff(buildingId) {

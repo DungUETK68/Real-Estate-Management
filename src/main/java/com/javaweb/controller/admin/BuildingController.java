@@ -7,6 +7,7 @@ import com.javaweb.enums.TypeCode;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
+import com.javaweb.service.IBuildingService;
 import com.javaweb.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,8 @@ import java.util.List;
 public class BuildingController {
     @Autowired
     private IUserService userService;
+    @Autowired
+    private IBuildingService buildingService;
 
     @GetMapping(value="/admin/building-list")
     public ModelAndView buildingList(@ModelAttribute BuildingSearchRequest buildingSearchRequest, HttpServletRequest request){
@@ -29,24 +32,8 @@ public class BuildingController {
         mav.addObject("listDistricts", District.listDistricts());
         mav.addObject("listStaffs",userService.getStaffs());
         mav.addObject("listTypes", TypeCode.listTypes());
-        //TODO: Xuong DB lay data (de thuc hien hien thi danh sach toa nha)
-        List<BuildingSearchResponse> responseList = new ArrayList<>();
-        BuildingSearchResponse item1 = new BuildingSearchResponse();
-        item1.setId(3L);
-        item1.setName("Landmark 81");
-        item1.setAddress("Ho Chi Minh");
-        item1.setNumberOfBasement(10L);
-        item1.setManagerName("Phung Tien Dung");
-        item1.setManagerPhone("0325561813");
-        BuildingSearchResponse item2 = new BuildingSearchResponse();
-        item2.setId(4L);
-        item2.setName("Landmark 72");
-        item2.setAddress("Ha Noi");
-        item2.setNumberOfBasement(8L);
-        item2.setManagerName("Phung Tien Dung");
-        item2.setManagerPhone("0325561813");
-        responseList.add(item1);
-        responseList.add(item2);
+
+        List<BuildingSearchResponse> responseList = buildingService.findAll(buildingSearchRequest);
         mav.addObject("buildingList", responseList);
         return mav;
     }
@@ -63,10 +50,9 @@ public class BuildingController {
     @GetMapping(value="/admin/building-edit-{id}")
     public ModelAndView buildingEdit(@PathVariable("id") Long id, HttpServletRequest request){
         ModelAndView mav = new ModelAndView("admin/building/edit");
-        //TODO: Xuong bd de tim building theo id de tra ra giao dien
-        BuildingDTO buildingDTO = new BuildingDTO();
-        buildingDTO.setId(id);
-        buildingDTO.setName("Phung Tien Dung Master Building");
+
+        BuildingDTO buildingDTO = buildingService.findById(id);
+
         mav.addObject("buildingEdit", buildingDTO);
         mav.addObject("listDistricts", District.listDistricts());
         mav.addObject("listTypes", TypeCode.listTypes());

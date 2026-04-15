@@ -2,17 +2,25 @@ package com.javaweb.service.impl;
 
 import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.UserEntity;
+import com.javaweb.enums.District;
+import com.javaweb.model.dto.BuildingDTO;
+import com.javaweb.model.request.BuildingSearchRequest;
+import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.model.response.StaffResponseDTO;
 import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.service.IBuildingService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class BuildingService implements IBuildingService {
@@ -21,6 +29,8 @@ public class BuildingService implements IBuildingService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public ResponseDTO listStaffs(Long buildingId) {
@@ -43,5 +53,60 @@ public class BuildingService implements IBuildingService {
         responseDTO.setData(staffResponseDTOS);
         responseDTO.setMessage("success");
         return responseDTO;
+    }
+
+    @Override
+    public List<BuildingSearchResponse> findAll(BuildingSearchRequest buildingSearchRequest) {
+        List<BuildingEntity> entities = buildingRepository.findBuildings(buildingSearchRequest);
+        List<BuildingSearchResponse> responses = new ArrayList<>();
+
+        Map<String, String> districtsMap = District.listDistricts();
+
+        for(BuildingEntity item : entities) {
+            BuildingSearchResponse buildingSearchResponse = modelMapper.map(item, BuildingSearchResponse.class);
+
+            String districtName = "";
+            if (item.getDistrict() != null && !item.getDistrict().isEmpty()) {
+                if (districtsMap.containsKey(item.getDistrict())) {
+                    districtName = districtsMap.get(item.getDistrict());
+                } else {
+                    districtName = item.getDistrict();
+                }
+            }
+            buildingSearchResponse.setAddress(item.getStreet() + ", " + item.getWard() + ", " + districtName);
+
+            if (item.getItems() != null && !item.getItems().isEmpty()) {
+                String rentAreaString = item.getItems().stream()
+                        .map(r -> r.getValue())
+                        .filter(val -> val != null && !val.isEmpty())
+                        .collect(Collectors.joining(", "));
+                buildingSearchResponse.setRentArea(rentAreaString);
+            }
+
+            if (item.getFloorArea() != null) {
+                buildingSearchResponse.setEmptyArea(String.valueOf(item.getFloorArea()));
+            } else {
+                buildingSearchResponse.setEmptyArea("");
+            }
+
+            responses.add(buildingSearchResponse);
+        }
+
+        return responses;
+    }
+
+    @Override
+    public BuildingDTO findById(Long id) {
+        return null;
+    }
+
+    @Override
+    public void save(BuildingDTO buildingDTO) {
+
+    }
+
+    @Override
+    public void delete(List<Long> ids) {
+
     }
 }

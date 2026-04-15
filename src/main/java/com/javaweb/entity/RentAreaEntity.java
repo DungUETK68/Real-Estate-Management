@@ -1,7 +1,5 @@
 package com.javaweb.entity;
 
-import org.hibernate.mapping.Join;
-
 import javax.persistence.*;
 
 @Entity

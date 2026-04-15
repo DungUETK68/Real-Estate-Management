@@ -2,7 +2,6 @@ package com.javaweb.repository.custom.impl;
 
 import com.javaweb.entity.BuildingEntity;
 import com.javaweb.model.request.BuildingSearchRequest;
-import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.custom.BuildingRepositoryCustom;
 import org.springframework.data.domain.Pageable;
 
@@ -10,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.lang.reflect.Field;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -84,7 +82,6 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
             where.append(sqlJoin).append(") ");
         }
     }
-
 
     @Override
     public List<BuildingEntity> findBuildings(BuildingSearchRequest request, Pageable pageable) {

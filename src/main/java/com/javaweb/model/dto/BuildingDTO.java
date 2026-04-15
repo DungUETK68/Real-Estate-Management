@@ -1,8 +1,6 @@
 package com.javaweb.model.dto;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class BuildingDTO extends AbstractDTO{
     private String name;

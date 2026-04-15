@@ -1,6 +1,5 @@
 package com.javaweb.model.response;
 
-
 import com.javaweb.model.dto.AbstractDTO;
 
 public class BuildingSearchResponse extends AbstractDTO {

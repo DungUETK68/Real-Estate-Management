@@ -1,7 +1,5 @@
 package com.javaweb.controller.admin;
 
-
-
 import com.javaweb.enums.District;
 import com.javaweb.enums.TypeCode;
 import com.javaweb.model.dto.BuildingDTO;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller(value="buildingControllerOfAdmin")

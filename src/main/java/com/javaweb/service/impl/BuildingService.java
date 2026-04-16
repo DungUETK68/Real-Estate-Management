@@ -1,6 +1,7 @@
 package com.javaweb.service.impl;
 
 import com.javaweb.entity.BuildingEntity;
+import com.javaweb.entity.RentAreaEntity;
 import com.javaweb.entity.UserEntity;
 import com.javaweb.enums.District;
 import com.javaweb.model.dto.BuildingDTO;
@@ -9,14 +10,17 @@ import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.model.response.StaffResponseDTO;
 import com.javaweb.repository.BuildingRepository;
+import com.javaweb.repository.RentAreaRepository;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.service.IBuildingService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,11 +29,12 @@ import java.util.stream.Collectors;
 public class BuildingService implements IBuildingService {
     @Autowired
     private BuildingRepository buildingRepository;
-
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private RentAreaRepository rentAreaRepository;
 
     @Override
     public ResponseDTO listStaffs(Long buildingId) {
@@ -100,13 +105,48 @@ public class BuildingService implements IBuildingService {
     }
 
     @Override
+    @Transactional
     public BuildingDTO findById(Long id) {
-        return null;
+        BuildingEntity entity = buildingRepository.findById(id).get();
+        BuildingDTO dto = modelMapper.map(entity, BuildingDTO.class);
+
+        if (entity.getTypeCode() != null) {
+            dto.setTypeCode(Arrays.asList(entity.getTypeCode().split(",")));
+        }
+
+        if (entity.getItems() != null && !entity.getItems().isEmpty()) {
+            String rentAreaString = entity.getItems().stream()
+                    .map(r -> r.getValue())
+                    .collect(Collectors.joining(", "));
+            dto.setRentArea(rentAreaString);
+        }
+        return dto;
     }
 
     @Override
     public void save(BuildingDTO buildingDTO) {
+        BuildingEntity buildingEntity = modelMapper.map(buildingDTO, BuildingEntity.class);
 
+        if (buildingDTO.getTypeCode() != null) {
+            buildingEntity.setTypeCode(String.join(",", buildingDTO.getTypeCode()));
+        }
+
+        if (buildingDTO.getId() != null) {
+            BuildingEntity oldBuilding = buildingRepository.findById(buildingDTO.getId()).get();
+            rentAreaRepository.deleteAllByBuildingId(buildingDTO.getId());
+        }
+
+        BuildingEntity savedBuilding = buildingRepository.save(buildingEntity);
+
+        if (buildingDTO.getRentArea() != null && !buildingDTO.getRentArea().trim().isEmpty()) {
+            String[] areas = buildingDTO.getRentArea().split(",");
+            for (String area : areas) {
+                RentAreaEntity rentAreaEntity = new RentAreaEntity();
+                rentAreaEntity.setValue(area.trim());
+                rentAreaEntity.setBuilding(savedBuilding);
+                rentAreaRepository.save(rentAreaEntity);
+            }
+        }
     }
 
     @Override

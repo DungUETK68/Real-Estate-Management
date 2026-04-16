@@ -17,9 +17,9 @@ public class BuildingAPI {
     private IBuildingService buildingService;
 
     @PostMapping
-    public BuildingDTO addOrUpdateBuilding(@RequestBody BuildingDTO buildingDTO) {
+    public void addOrUpdateBuilding(@RequestBody BuildingDTO buildingDTO) {
         //TODO: Xuong DB de them du lieu
-        return buildingDTO;
+        buildingService.save(buildingDTO);
     }
 
     @DeleteMapping("/{ids}")

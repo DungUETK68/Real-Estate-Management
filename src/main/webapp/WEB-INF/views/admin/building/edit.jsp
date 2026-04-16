@@ -88,7 +88,7 @@
 
                             <div class="form-group">
                                 <label class="col-xs-3">Diện tích thuê</label>
-                                <div class="col-xs-9"><input class="form-control" type="text" id="rentArea" name="renArea"></div>
+                                <div class="col-xs-9"><input class="form-control" type="text" id="rentArea" name="rentArea" value="${buildingEdit.rentArea}"></div>
                             </div>
 
                             <div class="form-group">
@@ -199,17 +199,22 @@
     </div> <!-- /.main-content -->
 
     <script>
-        $('#btnAddOrUpdateBuilding').click(function(){
+        $('#btnAddOrUpdateBuilding').click(function(e){
+            e.preventDefault();
             var data = {};
             var typeCode = [];
             var formData = $('#listForm').serializeArray();
+
             $.each(formData, function(i, v) {
-                if (v.name != 'typeCode') {
-                    data["" + v.name + ""] = v.value;
+                if (v.name !== "typeCode") {
+                    if (v.value !== "") {
+                        data["" + v.name + ""] = v.value;
+                    }
                 } else {
                     typeCode.push(v.value);
                 }
             });
+
             data['typeCode'] = typeCode;
             if (typeCode != "") {
                 addOrUpdateBuilding(data);
@@ -225,17 +230,19 @@
                 url: "/admin/building",
                 data: JSON.stringify(data),
                 contentType: "application/json",
-                dataType: "JSON",
+                // dataType: "JSON",
                 success: function(respond) {
-                    console.log("Success");
+                    window.location.href = "/admin/building-list";
                 },
                 error: function(respond) {
+                    alert("Có lỗi xảy ra, vui lòng xem Console.");
                     console.log(respond);
                 }
             });
         }
 
-        $('#btnCancel').click(function(){
+        $('#btnCancel').click(function(e){
+            e.preventDefault();
             window.location.href = "/admin/building-list";
         })
     </script>

@@ -124,6 +124,7 @@ public class BuildingService implements IBuildingService {
     }
 
     @Override
+    @Transactional
     public void save(BuildingDTO buildingDTO) {
         BuildingEntity buildingEntity = modelMapper.map(buildingDTO, BuildingEntity.class);
 
@@ -150,7 +151,11 @@ public class BuildingService implements IBuildingService {
     }
 
     @Override
+    @Transactional
     public void delete(List<Long> ids) {
-
+        for(Long id : ids) {
+            rentAreaRepository.deleteAllByBuildingId(id);
+            buildingRepository.deleteById(id);
+        }
     }
 }

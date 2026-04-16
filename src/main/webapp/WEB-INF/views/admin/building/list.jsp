@@ -376,7 +376,7 @@
 
     function deleteBuilding(id) {
         var building = [id];
-        deleteBuildings(id);
+        deleteBuildings(building);
     }
 
     $('#btnDeleteBuildings').click(function(e) {
@@ -390,14 +390,15 @@
     function deleteBuildings(data) {
         $.ajax({
             type: "DELETE",
-            url: "/admin/building/" + data,
+            url: "/admin/building",
             data: JSON.stringify(data),
             contentType: "application/json",
-            dataType: "json",
+            // dataType: "json",
             success: function(respond) {
-                console.log("Success");
+                window.location.reload();
             },
             error: function(respond) {
+                alert("Có lỗi xảy ra rồi! Vui lòng xem Console.");
                 console.log(respond);
             }
         });

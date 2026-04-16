@@ -18,14 +18,12 @@ public class BuildingAPI {
 
     @PostMapping
     public void addOrUpdateBuilding(@RequestBody BuildingDTO buildingDTO) {
-        //TODO: Xuong DB de them du lieu
         buildingService.save(buildingDTO);
     }
 
-    @DeleteMapping("/{ids}")
+    @DeleteMapping
     public void deleteBuilding(@RequestBody List<Long> ids){
-        //TODO:Xuong DB de xoa theo danh sach id
-        System.out.println("OK");
+        buildingService.delete(ids);
     }
 
     @GetMapping("/{id}/staffs")

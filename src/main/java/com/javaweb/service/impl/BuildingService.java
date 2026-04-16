@@ -155,7 +155,6 @@ public class BuildingService implements IBuildingService {
     @Transactional
     public void delete(List<Long> ids) {
         for(Long id : ids) {
-            rentAreaRepository.deleteAllByBuildingId(id);
             buildingRepository.deleteById(id);
         }
     }

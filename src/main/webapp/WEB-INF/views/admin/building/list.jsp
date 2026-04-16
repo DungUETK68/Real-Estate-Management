@@ -353,11 +353,10 @@
             contentType: "application/json",
             // dataType: "json",
             success: function(response) {
-                console.info("Success");
+                $('#assignmentBuildingModal').modal('hide');
             },
             error: function(response) {
-                console.info("Error");
-                window.location.href = "<c:url value = "/admin/building-list?message=error"/>";
+                alert("Đã có lỗi xảy ra! Vui lòng xem Console.");
                 console.log(response);
             }
         });

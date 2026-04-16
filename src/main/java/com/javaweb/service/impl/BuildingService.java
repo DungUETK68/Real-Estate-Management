@@ -4,6 +4,7 @@ import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.RentAreaEntity;
 import com.javaweb.entity.UserEntity;
 import com.javaweb.enums.District;
+import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
@@ -157,5 +158,14 @@ public class BuildingService implements IBuildingService {
             rentAreaRepository.deleteAllByBuildingId(id);
             buildingRepository.deleteById(id);
         }
+    }
+
+    @Override
+    @Transactional
+    public void updateAssignmentBuilding(AssignmentBuildingDTO assignmentBuildingDTO) {
+        BuildingEntity buildingEntity = buildingRepository.findById(assignmentBuildingDTO.getBuildingId()).get();
+        List<UserEntity> staffs = userRepository.findAllById(assignmentBuildingDTO.getStaffs());
+        buildingEntity.setUserEntities(staffs);
+        buildingRepository.save(buildingEntity);
     }
 }

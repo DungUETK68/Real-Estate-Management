@@ -34,6 +34,6 @@ public class BuildingAPI {
 
     @PostMapping("/assignment")
     public void updateAssignmentBuilding(@RequestBody AssignmentBuildingDTO assignmentBuildingDTO){
-        System.out.println("OK");
+        buildingService.updateAssignmentBuilding(assignmentBuildingDTO);
     }
 }

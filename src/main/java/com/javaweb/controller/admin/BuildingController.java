@@ -5,6 +5,7 @@ import com.javaweb.enums.TypeCode;
 import com.javaweb.model.dto.BuildingDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
+import com.javaweb.security.utils.SecurityUtils;
 import com.javaweb.service.IBuildingService;
 import com.javaweb.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,13 @@ public class BuildingController {
         int limit = 10;
         Pageable pageable = PageRequest.of(page - 1, limit);
 
-        List<BuildingSearchResponse> responseList = buildingService.findAll(buildingSearchRequest, pageable);
-        mav.addObject("buildingList", responseList);
+        if (SecurityUtils.getAuthorities().contains("ROLE_STAFF")) {
+            Long staffId = SecurityUtils.getPrincipal().getId();
+            buildingSearchRequest.setStaffId(staffId);
+            mav.addObject("buildingList", buildingService.findAll(buildingSearchRequest, pageable));
+        } else {
+            mav.addObject("buildingList", buildingService.findAll(buildingSearchRequest, pageable));
+        }
 
         int totalItem = buildingService.countTotalItems(buildingSearchRequest);
         int totalPages = (int) Math.ceil((double) totalItem / limit);

@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Controller(value="buildingControllerOfAdmin")
+@Controller(value="buildingController")
 public class BuildingController {
     @Autowired
     private IUserService userService;
@@ -39,10 +39,9 @@ public class BuildingController {
         if (SecurityUtils.getAuthorities().contains("ROLE_STAFF")) {
             Long staffId = SecurityUtils.getPrincipal().getId();
             buildingSearchRequest.setStaffId(staffId);
-            mav.addObject("buildingList", buildingService.findAll(buildingSearchRequest, pageable));
-        } else {
-            mav.addObject("buildingList", buildingService.findAll(buildingSearchRequest, pageable));
         }
+
+        mav.addObject("buildingList", buildingService.findAll(buildingSearchRequest, pageable));
 
         int totalItem = buildingService.countTotalItems(buildingSearchRequest);
         int totalPages = (int) Math.ceil((double) totalItem / limit);

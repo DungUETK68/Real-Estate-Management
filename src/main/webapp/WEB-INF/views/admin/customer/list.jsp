@@ -40,34 +40,35 @@
 
               <div class="widget-body" style="display: block; font-family: 'Times New Roman', Times, serif;">
                 <div class="widget-main">
-                  <form:form action="/admin/customer-list" id="listForm" method="get" modelAttribute="modelSearch">
+                  <form:form action="/admin/customer-list" id="listForm" method="GET" modelAttribute="modelSearch">
+
                     <div class="row">
                       <div class="form-group">
                         <div class="col-xs-12">
-<%--                          <div class="col-xs-4">--%>
-<%--                            <label class = "name">Tên khách hàng</label>--%>
-<%--                            <form:input path="fullName" class="form-control"/>--%>
-<%--                          </div>--%>
-<%--                          <div class="col-xs-4">--%>
-<%--                            <label class = "name">Số điện thoại</label>--%>
-<%--                            <form:input path="phone" class="form-control"/>--%>
-<%--                          </div>--%>
-<%--                          <div class="col-xs-4">--%>
-<%--                            <label class = "name">Email</label>--%>
-<%--                            <form:input path="email" class="form-control"/>--%>
-<%--                          </div>--%>
+                          <div class="col-xs-4">
+                            <label class = "name">Tên khách hàng</label>
+                            <form:input path="fullName" class="form-control"/>
+                          </div>
+                          <div class="col-xs-4">
+                            <label class = "name">Số điện thoại</label>
+                            <form:input path="phone" class="form-control"/>
+                          </div>
+                          <div class="col-xs-4">
+                            <label class = "name">Email</label>
+                            <form:input path="email" class="form-control"/>
+                          </div>
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="col-xs-12">
                           <security:authorize access="hasRole('MANAGER')">
-<%--                            <div class="col-xs-4">--%>
-<%--                              <label class = "name">Chọn nhân viên</label>--%>
-<%--                              <form:select class="form-control" path="staffId">--%>
-<%--                                <form:option value="">---Chọn Nhân viên---</form:option>--%>
-<%--                                <form:options items="${listStaffs}"/>--%>
-<%--                              </form:select>--%>
-<%--                            </div>--%>
+                            <div class="col-xs-4">
+                              <label class = "name">Chọn nhân viên</label>
+                              <form:select class="form-control" path="staffId">
+                                <form:option value="">---Chọn Nhân viên---</form:option>
+                                <form:options items="${listStaffs}"/>
+                              </form:select>
+                            </div>
                           </security:authorize>
                         </div>
                       </div>
@@ -78,7 +79,7 @@
                               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"></path>
                               </svg>
-                              Tím Kiếm
+                              Tìm Kiếm
                             </button>
                           </div>
                         </div>
@@ -112,47 +113,63 @@
         <div class="row">
           <div class="col-xs-12">
             <div class="table-responsive">
-              <display:table name="model.listResult" cellspacing="0" cellpadding="0"
-                             requestURI="${formUrl}" partialList="true" sort="external"
-                             size="${model.totalItems}" defaultsort="2" defaultorder="ascending"
-                             id="tableList" pagesize="${model.maxPageItems}"
-                             export="false"
-                             class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"
-                             style="margin: 3em 0 1.5em;">
-                <display:column title="<fieldset class=''>
-                                                           <input type='checkbox' id='checkAll' class='check-box-element'>
-                                                           </fieldset>" class="center select-cell"
-                                headerClass="center select-cell">
-                  <fieldset>
-                    <input type="checkbox" name="checkList" value="${tableList.id}"
-                           id="checkbox_${tableList.id}" class="check-box-element"/>
-                  </fieldset>
-                </display:column>
-                <display:column headerClass="text-left" property="fullName" title="Tên khách hàng"/>
-                <display:column headerClass="text-left" property="phone" title="Số điện thoại"/>
-                <display:column headerClass="text-left" property="email" title="Email"/>
-                <display:column headerClass="text-left" property="demand" title="Nhu cầu"/>
-                <display:column headerClass="text-left" property="createdBy" title="Người thêm"/>
-                <display:column headerClass="text-left" property="createdDate" title="Ngày thêm"/>
-                <display:column headerClass="text-left" property="status" title="Tình trạng"/>
-                <display:column headerClass="col-actions" title="Thao tác">
-                  <div class="hidden-sm hidden-xs btn-group">
-                    <security:authorize access="hasRole('MANAGER')">
-                      <button class="btn btn-xs btn-success" title="Người chăm sóc khách hàng" onclick="assingmentCustomer(${tableList.id})">
-                        <i class="ace-icon fa fa-check bigger-120"></i>
-                      </button>
-                    </security:authorize>
-                    <a class="btn btn-xs btn-info" title="Sửa thông tin khách haàng" href="/admin/customer-edit-${tableList.id}">
-                      <i class="ace-icon fa fa-pencil bigger-120"></i>
-                    </a>
-                    <security:authorize access="hasRole('MANAGER')">
-                      <button class="btn btn-xs btn-danger" title="Xóa thông tin khách hàng" onclick="deleteCustomer(${tableList.id})">
-                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                      </button>
-                    </security:authorize>
-                  </div>
-                </display:column>
-              </display:table>
+              <table id="tableList" class="table table-striped table-bordered table-hover" style="margin: 3em 0 1.5em;">
+    <thead>
+        <tr>
+            <th class="center">
+                <label class="pos-rel">
+                    <input type="checkbox" class="ace" id="checkAll">
+                    <span class="lbl"></span>
+                </label>
+            </th>
+            <th>Tên khách hàng</th>
+            <th>Số điện thoại</th>
+            <th>Email</th>
+            <th>Nhu cầu</th>
+            <th>Người thêm</th>
+            <th>Ngày thêm</th>
+            <th>Tình trạng</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <c:forEach var="item" items="${modelSearch.listResult}">
+            <tr>
+                <td class="center">
+                    <label class="pos-rel">
+                        <input type="checkbox" class="ace check-box-element" name="checkList" value="${item.id}" id="checkbox_${item.id}">
+                        <span class="lbl"></span>
+                    </label>
+                </td>
+                <td>${item.fullName}</td>
+                <td>${item.phone}</td>
+                <td>${item.email}</td>
+                <td>${item.demand}</td>
+                <td>${item.createdBy}</td>
+                <td>${item.createdDate}</td>
+                <td>${item.status}</td>
+                <td>
+                    <div class="hidden-sm hidden-xs btn-group">
+                        <security:authorize access="hasRole('MANAGER')">
+                            <button class="btn btn-xs btn-success" title="Người chăm sóc khách hàng" onclick="assingmentCustomer(${item.id})">
+                                <i class="ace-icon fa fa-check bigger-120"></i>
+                            </button>
+                        </security:authorize>
+                        <a class="btn btn-xs btn-info" title="Sửa thông tin khách hàng" href="/admin/customer-edit-${item.id}">
+                            <i class="ace-icon fa fa-pencil bigger-120"></i>
+                        </a>
+                        <security:authorize access="hasRole('MANAGER')">
+                            <button class="btn btn-xs btn-danger" title="Xóa thông tin khách hàng" onclick="deleteCustomer(${item.id})">
+                                <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                            </button>
+                        </security:authorize>
+                    </div>
+                </td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
             </div>
           </div>
         </div>
@@ -269,7 +286,7 @@
   function deleteCustomers(data) {
     $.ajax({
       type: "Delete",
-      url: "/api/customer/" + data,
+      url: "/admin/customer/",
       data: JSON.stringify(data),
       contentType: "application/json",
       dataType: "JSON",

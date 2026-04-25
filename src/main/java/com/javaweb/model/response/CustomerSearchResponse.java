@@ -1,13 +1,13 @@
-package com.javaweb.model.dto;
+package com.javaweb.model.response;
 
-public class CustomerDTO extends AbstractDTO{
+import com.javaweb.model.dto.AbstractDTO;
+
+public class CustomerSearchResponse extends AbstractDTO {
     private String fullName;
-    private String managementStaff;
     private String phone;
     private String email;
     private String demand;
     private String status;
-    private String companyName;
 
     public String getFullName() {
         return fullName;
@@ -23,23 +23,6 @@ public class CustomerDTO extends AbstractDTO{
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-
-    public String getManagementStaff() {
-        return managementStaff;
-    }
-
-    public void setManagementStaff(String managementStaff) {
-        this.managementStaff = managementStaff;
     }
 
     public String getEmail() {
@@ -65,5 +48,4 @@ public class CustomerDTO extends AbstractDTO{
     public void setStatus(String status) {
         this.status = status;
     }
-
 }

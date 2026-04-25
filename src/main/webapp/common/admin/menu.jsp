@@ -90,7 +90,7 @@
             <b class="arrow"></b>
             <ul class="submenu">
                 <li class="">
-                    <a href='/admin/customer-list'>
+                    <a href='<c:url value='/admin/customer-list'/>'>
                         <i class="menu-icon fa fa-caret-right"></i>
                         Danh sách khách hàng
                     </a>

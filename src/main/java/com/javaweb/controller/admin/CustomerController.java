@@ -4,12 +4,12 @@ import com.javaweb.constant.SystemConstant;
 import com.javaweb.enums.Status;
 import com.javaweb.enums.TransactionType;
 import com.javaweb.model.dto.CustomerDTO;
-import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.request.CustomerSearchRequest;
 import com.javaweb.model.response.CustomerSearchResponse;
 import com.javaweb.security.utils.SecurityUtils;
 import com.javaweb.service.ICustomerService;
 import com.javaweb.service.IUserService;
+import com.javaweb.service.impl.TransactionService;
 import com.javaweb.utils.DisplayTagUtils;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller(value="customerController")
@@ -26,6 +25,8 @@ public class CustomerController {
     private IUserService userService;
     @Autowired
     private ICustomerService customerService;
+    @Autowired
+    private TransactionService transactionService;
 
     @GetMapping(value = "/admin/customer-list")
     public ModelAndView getNews(@ModelAttribute(SystemConstant.MODEL) CustomerSearchRequest customerSearchRequest, HttpServletRequest request) {
@@ -64,9 +65,8 @@ public class CustomerController {
         mav.addObject("customerEdit", customerDTO);
         mav.addObject("listStatus", Status.listStatus());
         mav.addObject("transactionType", TransactionType.transactionType());
-        //2 cai thanh sách giấu đích theo loại gian dic findByCodeAndcustomerid
-        //ListType1: CSKH
-        //ListType2: DDX
+        mav.addObject("transactionCSKH", transactionService.findTransactions("CSKH", Id));
+        mav.addObject("transactionDDX", transactionService.findTransactions("DDX", Id));
         return mav;
     }
 }

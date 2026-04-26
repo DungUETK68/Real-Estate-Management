@@ -116,20 +116,22 @@
                                     <th>Thao tác</th>
                                 </tr>
                                 </thead>
-                                <c:forEach var="it" items="${transactionCSKH}">
-                                    <tbody>
-                                    <td>${it.createdDate}</td>
-                                    <td>${it.createdBy}</td>
-                                    <td>${it.modifiedDate}</td>
-                                    <td>${it.modifiedBy}</td>
-                                    <td>${it.note}</td>
-                                    <td>
-                                        <button class="btn btn-xs btn-info" title="Sửa thông tin giao dịch" onclick="updateTransaction(${it.id}, '${it.note}')">
-                                            <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                        </button>
-                                    </td>
-                                    </tbody>
-                                </c:forEach>
+                                <tbody>
+                                    <c:forEach var="it" items="${transactionCSKH}">
+                                        <tr>
+                                            <td>${it.createdDate}</td>
+                                            <td>${it.createdBy}</td>
+                                            <td>${it.modifiedDate}</td>
+                                            <td>${it.modifiedBy}</td>
+                                            <td>${it.note}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-xs btn-info" title="Sửa thông tin giao dịch" onclick="updateTransaction(${it.id}, '${it.note}')">
+                                                    <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
                             </table>
                         </div>
                     </c:if>
@@ -146,20 +148,22 @@
                                         <th>Thao tác</th>
                                     </tr>
                                 </thead>
-                                <c:forEach var="it" items="${transactionDDX}">
-                                    <tbody>
-                                        <td>${it.createdDate}</td>
-                                        <td>${it.createdBy}</td>
-                                        <td>${it.modifiedDate}</td>
-                                        <td>${it.modifiedBy}</td>
-                                        <td>${it.note}</td>
-                                        <td>
-                                            <button class="btn btn-xs btn-info" title="Sửa thông tin giao dịch" onclick="updateTransaction(${it.id}, '${it.note}')">
-                                                <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                            </button>
-                                        </td>
-                                    </tbody>
-                                </c:forEach>
+                                <tbody>
+                                    <c:forEach var="it" items="${transactionDDX}">
+                                        <tr>
+                                            <td>${it.createdDate}</td>
+                                            <td>${it.createdBy}</td>
+                                            <td>${it.modifiedDate}</td>
+                                            <td>${it.modifiedBy}</td>
+                                            <td>${it.note}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-xs btn-info" title="Sửa thông tin giao dịch" onclick="updateTransaction(${it.id}, '${it.note}')">
+                                                    <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
                             </table>
                         </div>
                     </c:if>
@@ -267,10 +271,9 @@
     function addOrUpdateTransaction(data) {
         $.ajax({
             type: "POST",
-            url: "/api/customer/transaction",
+            url: "/admin/customer/transaction",
             data: JSON.stringify(data),
             contentType: "application/json",
-            dataType: 'json',
             success: function(respond){
                 alert("Thao tác thành công!");
                 location.reload(true);

@@ -1,6 +1,6 @@
 package com.javaweb.model.dto;
 
-public class TransactionDTO {
+public class TransactionDTO extends AbstractDTO {
     private String code;
     private String note;
     private Long customerId;

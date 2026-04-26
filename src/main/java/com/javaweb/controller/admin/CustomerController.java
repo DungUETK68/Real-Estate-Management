@@ -1,6 +1,7 @@
 package com.javaweb.controller.admin;
 
 import com.javaweb.constant.SystemConstant;
+import com.javaweb.enums.Status;
 import com.javaweb.enums.TransactionType;
 import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.request.BuildingSearchRequest;
@@ -52,23 +53,18 @@ public class CustomerController {
     public ModelAndView customerEdit(@ModelAttribute("customerEdit") CustomerDTO customerDTO) {
         ModelAndView mav = new ModelAndView("admin/customer/edit");
         mav.addObject("customerEdit", customerDTO);
+        mav.addObject("listStatus", Status.listStatus());
         return mav;
     }
     @GetMapping(value = "/admin/customer-edit-{id}")
     public ModelAndView customerEdit(@PathVariable("id") Long Id) {
         ModelAndView mav = new ModelAndView("admin/customer/edit");
 
-        //find customer by id
-        CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setId(Id);
-        customerDTO.setFullName("Nguyen Van Mann");
-        customerDTO.setPhone("0913746245");
-        customerDTO.setStatus("Dang xử lý");
-        customerDTO.setPage(1);
-        customerDTO.setLimit(2);
-        customerDTO.setMaxPageItems(1);
-        mav.addObject("transactionType", TransactionType.transactionType());
+        CustomerDTO customerDTO = customerService.findById(Id);
+
         mav.addObject("customerEdit", customerDTO);
+        mav.addObject("listStatus", Status.listStatus());
+        mav.addObject("transactionType", TransactionType.transactionType());
         //2 cai thanh sách giấu đích theo loại gian dic findByCodeAndcustomerid
         //ListType1: CSKH
         //ListType2: DDX

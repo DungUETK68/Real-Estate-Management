@@ -152,7 +152,7 @@
                 <td>
                     <div class="hidden-sm hidden-xs btn-group">
                         <security:authorize access="hasRole('MANAGER')">
-                            <button class="btn btn-xs btn-success" title="Người chăm sóc khách hàng" onclick="assingmentCustomer(${item.id})">
+                            <button class="btn btn-xs btn-success" title="Quản lý chăm sóc khách hàng" onclick="assingmentCustomer(${item.id})">
                                 <i class="ace-icon fa fa-check bigger-120"></i>
                             </button>
                         </security:authorize>

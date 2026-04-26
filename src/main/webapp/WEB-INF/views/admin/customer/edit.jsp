@@ -35,18 +35,18 @@
                     <form:form modelAttribute="customerEdit" id="listForm" method="get">
                         <div class="col-xs-12">
                             <form class="form-horizontal" role="form">
-<%--                                <div class="form-group">--%>
-<%--                                    <label class="col-xs-3">Thêm tòa nhà</label>--%>
-<%--                                    <div class="col-xs-9">--%>
-<%--                                        <form:input path="fullName" class="form-control" required="required"/>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                                <div class="form-group">--%>
-<%--                                    <label class="col-xs-3">Số điện thoại</label>--%>
-<%--                                    <div class="col-xs-9">--%>
-<%--                                        <form:input path="phone" class="form-control" required="required"/>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
+                                <div class="form-group">
+                                    <label class="col-xs-3">Tên khách hàng</label>
+                                    <div class="col-xs-9">
+                                        <form:input path="fullName" class="form-control" required="required"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-3">Số điện thoại</label>
+                                    <div class="col-xs-9">
+                                        <form:input path="phone" class="form-control" required="required"/>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="col-xs-3">Email</label>
                                     <div class="col-xs-9">
@@ -70,7 +70,7 @@
                                     <div class="col-xs-6">
                                         <form:select class="form-control" path="status" required="required">
                                             <form:option value="">---Chọn---</form:option>
-                                            <form:options items="${Status}"/>
+                                            <form:options items="${listStatus}"/>
                                         </form:select>
                                     </div>
                                 </div>
@@ -218,12 +218,10 @@
     function addOrUpdateCustomer(data) {
         $.ajax({
             type: "POST",
-            url: "/api/customer",
+            url: "/admin/customer",
             data: JSON.stringify(data),
             contentType: "application/json",
-            dataType: 'json',
             success: function(){
-                alert("Thao tác thành công!");
                 window.location.href = "/admin/customer-list";
             },
             error: function(respond) {

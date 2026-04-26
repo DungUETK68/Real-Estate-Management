@@ -26,8 +26,8 @@ public class CustomerAPI {
     }
 
     @PostMapping
-    public void addOrUpdateCustomer(@RequestBody CustomerDTO customer) {
-        System.out.println("ok");
+    public void addOrUpdateCustomer(@RequestBody CustomerDTO customerDTO) {
+        customerService.save(customerDTO);
     }
 
     @PostMapping("/transaction")

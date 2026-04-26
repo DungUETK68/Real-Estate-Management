@@ -1,0 +1,24 @@
+package com.javaweb.enums;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+public enum Status {
+    DANG_XL ("Đang xử lý"),
+    DA_XL ("Đã xử lý"),
+    CHUA_XL ("Chưa xử lý");
+
+    private final String statusName;
+
+    Status(String statusName) {
+        this.statusName = statusName;
+    }
+
+    public static Map<String,String> listStatus(){
+        Map<String,String> list = new TreeMap<>();
+        for(Status item : Status.values()){
+            list.put(item.toString() , item.statusName);
+        }
+        return list;
+    }
+}

@@ -225,7 +225,7 @@
   function loadStaff(customerId) {
     $.ajax({
       type: "GET",
-      url: "/api/customer/" + customerId + "/staffs" ,
+      url: "/admin/customer/" + customerId + "/staffs" ,
       // data: JSON.stringify(data),
       contentType: "application/json",
       dataType: 'json',
@@ -249,7 +249,7 @@
   $('#btnAssingmentCustomerModal').click((e) => {
     e.preventDefault();
     let data = {};
-    data['id'] = $('#customerId').val();
+    data['customerId'] = $('#customerId').val();
     let staffs = $('#staff-list').find('tbody input[type = checkbox]:checked').map(function() {
       return $(this).val();
     }).get();
@@ -259,10 +259,10 @@
   function addAssignment(data) {
     $.ajax({
       type: "POST",
-      url: "/api/customer/staffs",
+      url: "/admin/customer/assignment",
       data: JSON.stringify(data),
       contentType: "application/json",
-      dataType: "JSON",
+      // dataType: "JSON",
       success: function(respond){
         alert("Bạn đã cập nhật thành công");
       },

@@ -1,10 +1,16 @@
 package com.javaweb.service.impl;
 
+import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.CustomerEntity;
+import com.javaweb.entity.UserEntity;
+import com.javaweb.model.dto.AssignmentCustomerDTO;
 import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.request.CustomerSearchRequest;
 import com.javaweb.model.response.CustomerSearchResponse;
+import com.javaweb.model.response.ResponseDTO;
+import com.javaweb.model.response.StaffResponseDTO;
 import com.javaweb.repository.CustomerRepository;
+import com.javaweb.repository.UserRepository;
 import com.javaweb.service.ICustomerService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +27,8 @@ public class CustomerService implements ICustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -75,5 +83,40 @@ public class CustomerService implements ICustomerService {
         for (Long id : ids) {
             customerRepository.deleteById(id);
         }
+    }
+
+    @Override
+    public ResponseDTO listStaffs(Long customerId) {
+        CustomerEntity customerEntity = customerRepository.findById(customerId).get();
+        List<UserEntity> staffs = userRepository.findByStatusAndRoles_Code(1, "STAFF");
+        List<UserEntity> staffAssignment = customerEntity.getStaffList();
+        List<StaffResponseDTO> staffResponseDTOS = new ArrayList<>();
+        ResponseDTO responseDTO = new ResponseDTO();
+        for(UserEntity item : staffs) {
+            StaffResponseDTO staffResponseDTO = new StaffResponseDTO();
+            staffResponseDTO.setFullName(item.getFullName());
+            staffResponseDTO.setStaffId(item.getId());
+            if (staffAssignment.contains(item)) {
+                staffResponseDTO.setChecked("checked");
+            } else {
+                staffResponseDTO.setChecked("");
+            }
+            staffResponseDTOS.add(staffResponseDTO);
+        }
+        responseDTO.setData(staffResponseDTOS);
+        responseDTO.setMessage("success");
+        return responseDTO;
+    }
+
+    @Override
+    @Transactional
+    public void updateAssignmentCustomer(AssignmentCustomerDTO assignmentCustomerDTO) {
+        CustomerEntity customer = customerRepository.findById(assignmentCustomerDTO.getCustomerId())
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy khách hàng!"));
+
+        List<UserEntity> staffs = userRepository.findByIdIn(assignmentCustomerDTO.getStaffs());
+
+        customer.setStaffList(staffs);
+        customerRepository.save(customer);
     }
 }

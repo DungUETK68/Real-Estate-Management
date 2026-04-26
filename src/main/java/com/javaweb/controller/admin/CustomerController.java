@@ -27,7 +27,6 @@ public class CustomerController {
     @Autowired
     private ICustomerService customerService;
 
-
     @GetMapping(value = "/admin/customer-list")
     public ModelAndView getNews(@ModelAttribute(SystemConstant.MODEL) CustomerSearchRequest customerSearchRequest, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("admin/customer/list");

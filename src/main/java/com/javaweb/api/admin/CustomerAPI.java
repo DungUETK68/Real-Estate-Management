@@ -1,6 +1,8 @@
 package com.javaweb.api.admin;
 
 import com.javaweb.entity.TransactionEntity;
+import com.javaweb.model.dto.AssignmentBuildingDTO;
+import com.javaweb.model.dto.AssignmentCustomerDTO;
 import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.service.IBuildingService;
@@ -21,13 +23,18 @@ public class CustomerAPI {
 
     @GetMapping("/{id}/staffs")
     public ResponseDTO loadStaffs(@PathVariable Long id) {
-        ResponseDTO responseDTO = buildingService.listStaffs(id);
+        ResponseDTO responseDTO = customerService.listStaffs(id);
         return responseDTO;
     }
 
     @PostMapping
     public void addOrUpdateCustomer(@RequestBody CustomerDTO customerDTO) {
         customerService.save(customerDTO);
+    }
+
+    @PostMapping("/assignment")
+    public void updateAssignmentCustomer(@RequestBody AssignmentCustomerDTO assignmentCustomerDTO){
+        customerService.updateAssignmentCustomer(assignmentCustomerDTO);
     }
 
     @PostMapping("/transaction")

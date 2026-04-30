@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -46,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                         .antMatchers("/admin/building-edit", "admin/building-edit-{id}", "admin/user-edit-{id}").hasAnyRole("MANAGER")
                         .antMatchers("/admin/**").hasAnyRole("MANAGER","STAFF")
-                        .antMatchers("/login", "/resource/**", "/trang-chu", "/api/**").permitAll()
+                        .antMatchers("/login", "/resource/**", "/trang-chu", "/api/**", "/admin/css/**", "/admin/js/**", "/admin/assets/**", "/web/**", "/img/**").permitAll()
                 .and()
                 .formLogin().loginPage("/login").usernameParameter("j_username").passwordParameter("j_password").permitAll()
                 .loginProcessingUrl("/j_spring_security_check")
@@ -55,6 +56,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().logoutUrl("/logout").deleteCookies("JSESSIONID")
                 .and().exceptionHandling().accessDeniedPage("/access-denied").and()
                 .sessionManagement().maximumSessions(1).expiredUrl("/login?sessionTimeout");
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(
+                "/admin/assets/**", "/admin/css/**", "/admin/font/**", "/admin/js/**",
+                "/admin/paging/**", "/admin/sweetalert/**", "/admin/*.css",
+                "/web/css/**", "/web/vendor/**", "/img/**", "/login/**"
+        );
     }
 
     @Bean

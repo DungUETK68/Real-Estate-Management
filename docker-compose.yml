@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  # 1. Cấu hình Database
+  db:
+    image: mysql:8.0
+    container_name: real_estate_db
+    environment:
+      MYSQL_DATABASE: estateadvance
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  # 2. Cấu hình Backend
+  backend:
+    build: .
+    container_name: real_estate_backend
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+    environment:
+      # Nạp thông tin kết nối DB cho Spring Boot (Ghi đè application.properties)
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/estateadvance?useSSL=false&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=123456
+
+volumes:
+  db_data:

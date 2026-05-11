@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
@@ -172,123 +173,39 @@
                 <div class="container">
                     <div class="content1 justify-content-center">
                         <div class="row">
-                            <div class="col-12 col-md-4">
-                                <div class="product1 vip">
-                                    <div class="product1-image new"></div>
+                            <c:forEach var="item" items="${buildings}">
+                <div class="col-12 col-md-4">
+                    <div class="product1 vip">
+                        <div class="product1-image new"></div>
 
-                                    <div class="product1-conntent">
-                                        <div class="product1-conntent-header">
-                                            <a href="">Căn hộ chung cư tại Sky Park Residence</a>
-                                        </div>
-                                        <span class="product1-conntent-title">Dự án Sky Park Residence số 3 Tôn Thất
-                                                Thuyết đang
-                                                trong quá trình hoàn thiện để đáp ứng tiến độ bàn giao nhà trong năm
-                                                2018.
-                                                Khách
-                                                hàng có thể thăm quan và giám sát trực tiếp chất lương công trình cũng
-                                                như
-                                                thưởng
-                                                ngoạn tầm view tuyệt đẹp ra hai công viên lớn nhất quận Cầu Giấy.</span>
-                                        <ul class="product1-conntent-list">
-                                            <li class="product1-conntent-item">
-                                                <i class="fa-solid fa-location-dot"></i>
-                                                <span>Số 03 Tôn Thất thuyết</span>
-                                            </li>
-                                            <li class="product1-conntent-item">
-                                                <i class="fa-solid fa-building"></i>
-                                                <span>Loại BĐS: Chung cư</span>
-                                            </li>
-                                            <li class="product1-conntent-item">
-                                                <i class="fa-solid fa-earth-asia"></i>
-                                                <span>Diện tích: 78m2 - 146m2</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="product1-footer">
-                                        <span class="product1-footer-cost">2,5 Tỷ</span>
-                                        <button class="product1-footer-detail"><a href="./ChiTiet.html"
-                                                                                  style="color:#fff">Xem chi
-                                            tiết</a></button>
-                                    </div>
-                                </div>
+                        <div class="product1-conntent">
+                            <div class="product1-conntent-header">
+                                <a href="/chi-tiet-san-pham?id=${item.id}">${item.name}</a>
                             </div>
-                            <div class="col-12 col-md-4">
-                                <div class="product1 hot">
-                                    <div class="product2-image new"></div>
-                                    <div class="product1-conntent">
-                                        <div class="product1-conntent-header">
-                                            <a href="">Căn hộ chung cư tại Sky Park Residence</a>
-                                        </div>
-                                        <span class="product1-conntent-title">Dự án Sky Park Residence số 3 Tôn Thất
-                                                Thuyết đang
-                                                trong quá trình hoàn thiện để đáp ứng tiến độ bàn giao nhà trong năm
-                                                2018.
-                                                Khách
-                                                hàng có thể thăm quan và giám sát trực tiếp chất lương công trình cũng
-                                                như
-                                                thưởng
-                                                ngoạn tầm view tuyệt đẹp ra hai công viên lớn nhất quận Cầu Giấy.</span>
-                                        <ul class="product1-conntent-list">
-                                            <li class="product1-conntent-item">
-                                                <i class="fa-solid fa-location-dot"></i>
-                                                <span>Số 03 Tôn Thất thuyết</span>
-                                            </li>
-                                            <li class="product1-conntent-item">
-                                                <i class="fa-solid fa-building"></i>
-                                                <span>Loại BĐS: Chung cư</span>
-                                            </li>
-                                            <li class="product1-conntent-item">
-                                                <i class="fa-solid fa-earth-asia"></i>
-                                                <span>Diện tích: 78m2 - 146m2</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="product1-footer">
-                                        <span class="product1-footer-cost">2,5 Tỷ</span>
-                                        <button class="product1-footer-detail"><a href="./ChiTiet.html"
-                                                                                  style="color:#fff">Xem chi
-                                            tiết</a></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-4">
-                                <div class="product1 vip">
-                                    <div class="product3-image new"></div>
-                                    <div class="product1-conntent">
-                                        <div class="product1-conntent-header">
-                                            <a href="">Căn hộ chung cư tại Sky Park Residence</a>
-                                        </div>
-                                        <span class="product1-conntent-title">Dự án Sky Park Residence số 3 Tôn Thất
-                                                Thuyết đang trong quá trình hoàn thiện để đáp ứng tiến độ bàn giao nhà
-                                                trong năm
-                                                2018. Khách
-                                                hàng có thể thăm quan và giám sát trực tiếp chất lương công trình cũng
-                                                như
-                                                thưởng
-                                                ngoạn tầm view tuyệt đẹp ra hai công viên lớn nhất quận Cầu Giấy.</span>
-                                        <ul class="product1-conntent-list">
-                                            <li class="product1-conntent-item">
-                                                <i class="fa-solid fa-location-dot"></i>
-                                                <span>Số 03 Tôn Thất thuyết</span>
-                                            </li>
-                                            <li class="product1-conntent-item">
-                                                <i class="fa-solid fa-building"></i>
-                                                <span>Loại BĐS: Chung cư</span>
-                                            </li>
-                                            <li class="product1-conntent-item">
-                                                <i class="fa-solid fa-earth-asia"></i>
-                                                <span>Diện tích: 78m2 - 146m2</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="product1-footer">
-                                        <span class="product1-footer-cost">2,5 Tỷ</span>
-                                        <button class="product1-footer-detail"><a href="./ChiTiet.html"
-                                                                                  style="color:#fff">Xem chi
-                                            tiết</a></button>
-                                    </div>
-                                </div>
-                            </div>
+                            <span class="product1-conntent-title"><c:choose><c:when test="${empty item.managerName}">Chưa có quản lý</c:when><c:otherwise>Tên quản lý: ${item.managerName} - ${item.managerPhone}</c:otherwise></c:choose></span>
+                            <ul class="product1-conntent-list">
+                                <li class="product1-conntent-item">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <span>Địa chỉ: ${item.address}</span>
+                                </li>
+                                <li class="product1-conntent-item">
+                                    <i class="fa-solid fa-building"></i>
+                                    <span><c:choose><c:when test="${empty item.managerName}">Chưa có quản lý</c:when><c:otherwise>Tên quản lý: ${item.managerName}</c:otherwise></c:choose></span>
+                                </li>
+                                <li class="product1-conntent-item">
+                                    <i class="fa-solid fa-earth-asia"></i>
+                                    <span>Diện tích: ${item.emptyArea} m^2</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="product1-footer">
+                            <span class="product1-footer-cost">Giá thuê: <c:choose><c:when test="${empty item.rentPrice}">Liên hệ</c:when><c:otherwise>${item.rentPrice} triệu/tháng</c:otherwise></c:choose></span>
+                            <button class="product1-footer-detail"><a href="/chi-tiet-san-pham?id=${item.id}" style="color:#fff">Xem chi tiết</a></button>
+                        </div>
+                    </div>
+                </div>
+</c:forEach>
+</div>
                         </div>
                     </div>
                 </div>

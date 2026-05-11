@@ -1,6 +1,10 @@
 package com.javaweb.controller.web;
 
 import com.javaweb.model.request.BuildingSearchRequest;
+import com.javaweb.model.response.BuildingSearchResponse;
+import com.javaweb.service.IBuildingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -13,14 +17,20 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller(value = "homeControllerOfWeb")
 public class HomeController {
+
+    @Autowired
+    private IBuildingService buildingService;
 
 	@RequestMapping(value = "/trang-chu", method = RequestMethod.GET)
 	public ModelAndView homePage(BuildingSearchRequest buildingSearchRequest, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("web/home");
         mav.addObject("modelSearch", buildingSearchRequest);
+        List<BuildingSearchResponse> buildings = buildingService.findAll(buildingSearchRequest, PageRequest.of(0, 6));
+        mav.addObject("buildings", buildings);
 		return mav;
 	}
 
@@ -31,8 +41,22 @@ public class HomeController {
     }
 
     @GetMapping(value="/san-pham")
-    public ModelAndView buidingList(){
+    public ModelAndView buidingList(BuildingSearchRequest buildingSearchRequest){
         ModelAndView mav = new ModelAndView("/web/list");
+        List<BuildingSearchResponse> buildings = buildingService.findAll(buildingSearchRequest, PageRequest.of(0, 20));
+        mav.addObject("buildings", buildings);
+        return mav;
+    }
+
+    @GetMapping(value="/chi-tiet-san-pham")
+    public ModelAndView buildingDetail(@org.springframework.web.bind.annotation.RequestParam(value="id", required=true) Long id){
+        ModelAndView mav = new ModelAndView("/web/detail");
+        com.javaweb.model.dto.BuildingDTO building = buildingService.findById(id);
+        java.util.Map<String, String> districtsMap = com.javaweb.enums.District.listDistricts();
+        if (building.getDistrict() != null && districtsMap.containsKey(building.getDistrict())) {
+            building.setDistrict(districtsMap.get(building.getDistrict()));
+        }
+        mav.addObject("building", building);
         return mav;
     }
 

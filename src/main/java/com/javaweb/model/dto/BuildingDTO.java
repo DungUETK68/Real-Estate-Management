@@ -10,7 +10,7 @@ public class BuildingDTO extends AbstractDTO{
     private String street;
     private Long numberOfBasement;
     private String direction;
-    private Long level;
+    private String level;
     private String rentArea;
     private Long rentPrice;
     private String managerName;
@@ -73,11 +73,11 @@ public class BuildingDTO extends AbstractDTO{
         this.direction = direction;
     }
 
-    public Long getLevel() {
+    public String getLevel() {
         return level;
     }
 
-    public void setLevel(Long level) {
+    public void setLevel(String level) {
         this.level = level;
     }
 

@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<%@include file="/common/taglib.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -15,46 +14,6 @@
 
 <body>
 <div class="page-wrapper">
-    <%--<header>--%>
-        <%--<!-- MENU  -->--%>
-        <%--<div class="p-4">--%>
-            <%--<div class="row navbar">--%>
-                <%--<div class="col-12 col-md-3">--%>
-                    <%--<div class="logo">--%>
-                        <%--<a href="/trang-chu">--%>
-                            <%--<img src="https://bizweb.dktcdn.net/100/328/362/themes/894751/assets/logo.png?1676257083798"--%>
-                                 <%--alt="">--%>
-                        <%--</a>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-                <%--<div class="col-12 col-md-6">--%>
-                    <%--<div class="item-menu">--%>
-                        <%--<div class="nav nav1">--%>
-                            <%--<div class="nav-item p-2"><a class="nav-item-link" href="/trang-chu"><span>Trang--%>
-                                            <%--chủ</span></a></div>--%>
-                            <%--<div class="nav-item p-2"><a class="nav-item-link" href="/gioi-thieu"><span>Giới--%>
-                                            <%--thiệu</span></a></div>--%>
-                            <%--<div class="nav-item p-2"><a class="nav-item-link" href=""><span--%>
-                                    <%--style="color: var(--primary-color);">Sản phẩm</span></a></div>--%>
-                            <%--<div class="nav-item p-2"><a class="nav-item-link" href="/tin-tuc"><span>Tin--%>
-                                            <%--tức</span></a>--%>
-                            <%--</div>--%>
-                            <%--<div class="nav-item p-2"><a href='<c:url value='/lien-he'/>'><span>Liên hệ--%>
-                                    <%--</span></a>--%>
-                            <%--</div>--%>
-
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-                <%--<div class="col-12 col-md-3">--%>
-                    <%--<button class="btn btn-primary px-4">--%>
-                        <%--Liên hệ tư vấn--%>
-                    <%--</button>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-    <%--</header>--%>
-    <!-- INTRO  -->
     <div class="intro text-center">
         <div class="title-page">Tất cả dự án</div>
         <div class="row">
@@ -72,37 +31,39 @@
     <!-- SEARCH  -->
     <div class="search">
         <div class="container">
+            <form action="<c:url value='/san-pham'/>" method="GET" id="form-search">
             <div class="row">
                 <div class="col-12 col-md-3 search-item">
-                    <p class="search-text">Chọn tỉnh/thành phố</p>
-                    <select class="search-option" name="search-option" id="search-option">
-                        <option value>- Tỉnh/thành phố</option>
-                        <option value="">TP.Đà Nẵng</option>
-                        <option value="">TP.Hồ Chí Minh</option>
-                        <option value="">TP.Hà Nội</option>
-                        <option value="">TP.Cần Thơ</option>
-                    </select>
+                    <p class="search-text">Tên tòa nhà</p>
+                    <input type="text" class="search-option" name="name" value="${modelSearch.name}" placeholder="Nhập tên tòa nhà...">
                 </div>
                 <div class="col-12 col-md-3 search-item">
                     <p class="search-text">Chọn quận/huyện</p>
-                    <select class="search-option" name="search-option" id="search-option">
-                        <option value>- Quận/huyện</option>
+                    <select class="search-option" name="district" id="district">
+                        <option value="">--Chọn quận--</option>
+                        <c:forEach var="item" items="${listDistricts}">
+                            <option value="${item.key}" ${modelSearch.district == item.key ? 'selected' : ''}>${item.value}</option>
+                        </c:forEach>
                     </select>
                 </div>
 
                 <div class="col-12 col-md-3 search-item">
                     <p class="search-text">Chọn loại bất động sản</p>
-                    <select class="search-option" name="search-option" id="search-option">
-                        <option value>- Loại bất động sản</option>
+                    <select class="search-option" name="typeCode" id="typeCode">
+                        <option value="">- Loại bất động sản</option>
+                        <c:forEach var="item" items="${listTypes}">
+                            <option value="${item.key}" ${modelSearch.typeCode != null && modelSearch.typeCode.contains(item.key) ? 'selected' : ''}>${item.value}</option>
+                        </c:forEach>
                     </select>
                 </div>
                 <div class="col-12 col-md-3 search-btn">
-                    <button class="search-btn-text pb-0">
+                    <button type="submit" class="search-btn-text pb-0">
                         <i class="fa-solid fa-magnifying-glass search-btn-icon"></i>
                         <span>Tìm kiếm nhanh</span>
                     </button>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 
@@ -110,41 +71,6 @@
     <div class="product mt-5">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-md-4 mb-3">
-                    <div class="product1 vip">
-                        <div class="product1-image new"></div>
-
-                        <div class="product1-conntent">
-                            <div class="product1-conntent-header">
-                                <a href="">Căn hộ chung cư tại Sky Park Residence</a>
-                            </div>
-                            <span class="product1-conntent-title">Dự án Sky Park Residence số 3 Tôn Thất Thuyết đang
-                                    trong quá trình hoàn thiện để đáp ứng tiến độ bàn giao nhà trong năm 2018. Khách
-                                    hàng có thể thăm quan và giám sát trực tiếp chất lương công trình cũng như thưởng
-                                    ngoạn tầm view tuyệt đẹp ra hai công viên lớn nhất quận Cầu Giấy.</span>
-                            <ul class="product1-conntent-list">
-                                <li class="product1-conntent-item">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <span>Số 03 Tôn Thất thuyết</span>
-                                </li>
-                                <li class="product1-conntent-item">
-                                    <i class="fa-solid fa-building"></i>
-                                    <span>Loại BĐS: Chung cư</span>
-                                </li>
-                                <li class="product1-conntent-item">
-                                    <i class="fa-solid fa-earth-asia"></i>
-                                    <span>Diện tích: 78m2 - 146m2</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="product1-footer">
-                            <span class="product1-footer-cost">2,5 Tỷ</span>
-                            <button class="product1-footer-detail"><a href="./ChiTiet.html" style="color:#fff">Xem
-                                chi
-                                tiết</a></button>
-                        </div>
-                    </div>
-                </div>
                 <c:forEach var="item" items="${buildings}">
                 <div class="col-12 col-md-4">
                     <div class="product1 vip">
@@ -176,88 +102,7 @@
                         </div>
                     </div>
                 </div>
-</c:forEach>
-</div>
-                <c:forEach var="item" items="${buildings}">
-                <div class="col-12 col-md-4">
-                    <div class="product1 vip">
-                        <div class="product1-image new"></div>
-
-                        <div class="product1-conntent">
-                            <div class="product1-conntent-header">
-                                <a href="/chi-tiet-san-pham?id=${item.id}">${item.name}</a>
-                            </div>
-                            <span class="product1-conntent-title"><c:choose><c:when test="${empty item.managerName}">Chưa có quản lý</c:when><c:otherwise>Tên quản lý: ${item.managerName} - ${item.managerPhone}</c:otherwise></c:choose></span>
-                            <ul class="product1-conntent-list">
-                                <li class="product1-conntent-item">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    <span>Địa chỉ: ${item.address}</span>
-                                </li>
-                                <li class="product1-conntent-item">
-                                    <i class="fa-solid fa-building"></i>
-                                    <span><c:choose><c:when test="${empty item.managerName}">Chưa có quản lý</c:when><c:otherwise>Tên quản lý: ${item.managerName}</c:otherwise></c:choose></span>
-                                </li>
-                                <li class="product1-conntent-item">
-                                    <i class="fa-solid fa-earth-asia"></i>
-                                    <span>Diện tích: ${item.emptyArea} m^2</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="product1-footer">
-                            <span class="product1-footer-cost">Giá thuê: <c:choose><c:when test="${empty item.rentPrice}">Liên hệ</c:when><c:otherwise>${item.rentPrice} triệu/tháng</c:otherwise></c:choose></span>
-                            <button class="product1-footer-detail"><a href="/chi-tiet-san-pham?id=${item.id}" style="color:#fff">Xem chi tiết</a></button>
-                        </div>
-                    </div>
-                </div>
-</c:forEach>
-</div>
-                <div class="col-12 col-md-4">
-                    <div class="product1 vip">
-                        <div class="product1-image new"></div>
-
-                        <div class="product1-conntent">
-                            <div class="product1-conntent-header">
-                                <a href="">Căn hộ chung cư tại Sky Park Residence</a>
-                            </div>
-                            <span class="product1-conntent-title">Dự án Sky Park Residence số 3 Tôn Thất Thuyết đang
-                                    trong quá trình hoàn thiện để đáp ứng tiến độ bàn giao nhà trong năm 2018. Khách
-                                    hàng có thể thăm quan và giám sát trực tiếp chất lương công trình cũng như thưởng
-                                    ngoạn tầm view tuyệt đẹp ra hai công viên lớn nhất quận Cầu Giấy.</span>
-                            <ul class="product1-conntent-list">
-                                <li class="product1-conntent-item">
-                                 <i class="fa-solid fa-location-dot"></i>
-                                    <span>Số 03 Tôn Thất thuyết</span>
-                                </li>
-                                <li class="product1-conntent-item">
-                                    <svg class="svg-inline--fa fa-building" aria-hidden="true" focusable="false"
-                                         data-prefix="fas" data-icon="building" role="img"
-                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg="">
-                                        <path fill="currentColor"
-                                              d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h96c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16z">
-                                        </path>
-                                    </svg><!-- <i class="fa-solid fa-building"></i> Font Awesome fontawesome.com -->
-                                    <span>Loại BĐS: Chung cư</span>
-                                </li>
-                                <li class="product1-conntent-item">
-                                    <svg class="svg-inline--fa fa-earth-asia" aria-hidden="true" focusable="false"
-                                         data-prefix="fas" data-icon="earth-asia" role="img"
-                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
-                                        <path fill="currentColor"
-                                              d="M51.7 295.1l31.7 6.3c7.9 1.6 16-.9 21.7-6.6l15.4-15.4c11.6-11.6 31.1-8.4 38.4 6.2l9.3 18.5c4.8 9.6 14.6 15.7 25.4 15.7c15.2 0 26.1-14.6 21.7-29.2l-6-19.9c-4.6-15.4 6.9-30.9 23-30.9h2.3c13.4 0 25.9-6.7 33.3-17.8l10.7-16.1c5.6-8.5 5.3-19.6-.8-27.7l-16.1-21.5c-10.3-13.7-3.3-33.5 13.4-37.7l17-4.3c7.5-1.9 13.6-7.2 16.5-14.4l16.4-40.9C303.4 52.1 280.2 48 256 48C141.1 48 48 141.1 48 256c0 13.4 1.3 26.5 3.7 39.1zm407.7 4.6c-3-.3-6-.1-9 .8l-15.8 4.4c-6.7 1.9-13.8-.9-17.5-6.7l-2-3.1c-6-9.4-16.4-15.1-27.6-15.1s-21.6 5.7-27.6 15.1l-6.1 9.5c-1.4 2.2-3.4 4.1-5.7 5.3L312 330.1c-18.1 10.1-25.5 32.4-17 51.3l5.5 12.4c8.6 19.2 30.7 28.5 50.5 21.1l2.6-1c10-3.7 21.3-2.2 29.9 4.1l1.5 1.1c37.2-29.5 64.1-71.4 74.4-119.5zM512 256c0 141.4-114.6 256-256 256S0 397.4 0 256S114.6 0 256 0S512 114.6 512 256zM144.5 348.1c-2.1 8.6 3.1 17.3 11.6 19.4l32 8c8.6 2.1 17.3-3.1 19.4-11.6s-3.1-17.3-11.6-19.4l-32-8c-8.6-2.1-17.3 3.1-19.4 11.6zm92-20c-2.1 8.6 3.1 17.3 11.6 19.4s17.3-3.1 19.4-11.6l8-32c2.1-8.6-3.1-17.3-11.6-19.4s-17.3 3.1-19.4 11.6l-8 32zM343.2 113.7c-7.9-4-17.5-.7-21.5 7.2l-16 32c-4 7.9-.7 17.5 7.2 21.5s17.5 .7 21.5-7.2l16-32c4-7.9 .7-17.5-7.2-21.5z">
-                                        </path>
-                                    </svg><!-- <i class="fa-solid fa-earth-asia"></i> Font Awesome fontawesome.com -->
-                                    <span>Diện tích: 78m2 - 146m2</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="product1-footer">
-                            <span class="product1-footer-cost">2,5 Tỷ</span>
-                            <button class="product1-footer-detail"><a href="./ChiTiet.html" style="color:#fff">Xem
-                                chi
-                                tiết</a></button>
-                        </div>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
 

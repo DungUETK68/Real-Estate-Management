@@ -1,3 +1,21 @@
 .red-text {
     color: #F44336 !important;
 }
+
+/* Modern Blue Theme Overrides */
+.btn-primary, .btn-info {
+    background: linear-gradient(135deg, #007bff 0%, #00d2ff 100%) !important;
+    border-color: #007bff !important;
+}
+
+.btn-primary:hover, .btn-info:hover {
+    opacity: 0.9;
+}
+
+.nav-list > li.active > a, .nav-list > li.active > a:hover, .nav-list > li.active > a:focus {
+    color: #007bff;
+}
+
+.nav-list > li.active > a:after {
+    border-right-color: #007bff;
+}

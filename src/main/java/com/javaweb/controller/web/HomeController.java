@@ -1,5 +1,7 @@
 package com.javaweb.controller.web;
 
+import com.javaweb.enums.District;
+import com.javaweb.enums.TypeCode;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
 import com.javaweb.service.IBuildingService;
@@ -29,6 +31,8 @@ public class HomeController {
 	public ModelAndView homePage(BuildingSearchRequest buildingSearchRequest, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("web/home");
         mav.addObject("modelSearch", buildingSearchRequest);
+        mav.addObject("listDistricts", District.listDistricts());
+        mav.addObject("listTypes", TypeCode.listTypes());
         List<BuildingSearchResponse> buildings = buildingService.findAll(buildingSearchRequest, PageRequest.of(0, 6));
         mav.addObject("buildings", buildings);
 		return mav;
@@ -43,6 +47,9 @@ public class HomeController {
     @GetMapping(value="/san-pham")
     public ModelAndView buidingList(BuildingSearchRequest buildingSearchRequest){
         ModelAndView mav = new ModelAndView("/web/list");
+        mav.addObject("modelSearch", buildingSearchRequest);
+        mav.addObject("listDistricts", District.listDistricts());
+        mav.addObject("listTypes", TypeCode.listTypes());
         List<BuildingSearchResponse> buildings = buildingService.findAll(buildingSearchRequest, PageRequest.of(0, 20));
         mav.addObject("buildings", buildings);
         return mav;

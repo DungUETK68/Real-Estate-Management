@@ -1,6 +1,5 @@
 /target/
 /build/
-/.gradle/
 /bin/
 /*.classpath
 /*.project
@@ -9,3 +8,4 @@
 /*.iml
 /database
 /GEMINI.md
+/.gradle

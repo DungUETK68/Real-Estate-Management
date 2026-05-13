@@ -7,6 +7,7 @@ Một ứng dụng Web toàn diện hỗ trợ quản lý, vận hành và quả
 ### **Backend**
 * **Ngôn ngữ:** Java 8
 * **Framework:** Spring Boot (2.0.9.RELEASE)
+* **Build Tool:** Gradle (Groovy DSL)
 * **Web & Data:** Spring Web MVC, Spring Data JPA / Hibernate (Quản lý các mối quan hệ phức tạp Many-To-Many, One-To-Many, cấu hình Cascade).
 * **Bảo mật:** Spring Security & Spring Security Taglibs 4.2 (Xác thực người dùng, Phân quyền Role-based).
 * **Tiện ích:** 
@@ -23,7 +24,7 @@ Một ứng dụng Web toàn diện hỗ trợ quản lý, vận hành và quả
 ### **Database & Deployment**
 * **Cơ sở dữ liệu:** MySQL 8.x (sử dụng `mysql-connector-java` 8.0.13).
 * **Môi trường chạy (Runtime):** Apache Tomcat Embedded (đóng gói dạng `.war`).
-* **Containerization:** Hỗ trợ triển khai nhanh qua Docker và Docker Compose.
+* **Containerization:** Hỗ trợ triển khai nhanh qua Docker và Docker Compose (Build bằng Gradle).
 
 ---
 
@@ -34,7 +35,7 @@ Một ứng dụng Web toàn diện hỗ trợ quản lý, vận hành và quả
 * **Phân trang dữ liệu (Pagination):** Xử lý phân trang tối ưu trực tiếp dưới Database (Limit/Offset) kết hợp Spring `Pageable`, đảm bảo tốc độ phản hồi nhanh khi dữ liệu phình to.
 * **Thao tác CRUD bất đồng bộ:**
   * **Thêm mới / Cập nhật:** Giao diện tích hợp "2 trong 1", xử lý lưu trữ thông tin Tòa nhà và danh sách các Diện tích thuê liên quan (`RentArea`) một cách an toàn thông qua annotation `@Transactional`.
-  * **Xóa:** Hỗ trợ xóa đơn lẻ hoặc xóa hàng loạt nhiều tòa nhà cùng lúc qua Checkbox, tự động dọn dẹp các dữ liệu mồ côi (orphan data) liên quan.
+  * **Xóa:** Hỗ trợ xóa đơn lẻ hoặc xóa hàng loạt nhiều tòa nhà cùng lúc qua Checkbox, tự động dọn dẹp các dữ liệu mồ hôi (orphan data) liên quan.
 * **Phân công Tòa nhà (Assignment):** Quản trị viên (Admin) có thể phân công quản lý Tòa nhà cho các Nhân viên (Staff). Xử lý mượt mà mối quan hệ Nhiều-Nhiều (Many-To-Many) dưới cơ sở dữ liệu.
 
 ### 2. Cổng thông tin khách hàng (Customer Portal)
@@ -94,19 +95,18 @@ src/
 
 ### Yêu cầu hệ thống:
 * **Java:** JDK 1.8
-* **Maven:** 3.6+
+* **Build Tool:** Gradle 6.x
 * **Database:** MySQL 8.x
-* **Docker** (Tùy chọn, nếu muốn chạy nhanh qua container)
+* **Docker** (Khuyến nghị)
 
 ### Bước 1: Thiết lập Cơ sở dữ liệu
 Tạo một cơ sở dữ liệu mới trong MySQL với tên `estateadvance`:
 ```sql
 CREATE DATABASE estateadvance CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
-*(Lưu ý: Bạn có thể import file `init.sql` nếu có sẵn để nạp dữ liệu mẫu, hoặc để Hibernate tự động sinh cấu trúc bảng theo cấu hình trong `application.properties`)*
 
 ### Bước 2: Cấu hình ứng dụng
-Mở file `src/main/resources/application.properties` và đảm bảo thông tin đăng nhập database chính xác với môi trường của bạn:
+Mở file `src/main/resources/application.properties` và đảm bảo thông tin đăng nhập database chính xác:
 ```properties
 spring.datasource.url = jdbc:mysql://localhost:3306/estateadvance
 spring.datasource.username = root
@@ -114,19 +114,19 @@ spring.datasource.password = 123456
 ```
 
 ### Bước 3: Build và Chạy dự án (Cách truyền thống)
-Sử dụng Maven để build dự án:
+Sử dụng Gradle để build dự án:
 ```bash
-mvn clean package -DskipTests
+./gradlew clean build -x test
 ```
-Chạy ứng dụng bằng Spring Boot plugin:
+Chạy ứng dụng:
 ```bash
-mvn spring-boot:run
+./gradlew bootRun
 ```
 Ứng dụng sẽ khả dụng tại: `http://localhost:8080/`
 
-### Bước 4: Chạy dự án bằng Docker (Khuyến nghị)
+### Bước 4: Chạy dự án bằng Docker (Cách nhanh nhất)
 Nếu hệ thống của bạn đã cài đặt Docker và Docker Compose, bạn có thể khởi chạy toàn bộ ứng dụng và database chỉ với 1 lệnh:
 ```bash
 docker-compose up --build -d
 ```
-Docker sẽ tự động đóng gói ứng dụng và thiết lập container MySQL với cơ sở dữ liệu `estateadvance`.
+Docker sẽ tự động dùng Gradle để đóng gói ứng dụng bên trong container và thiết lập MySQL.

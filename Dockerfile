@@ -1,13 +1,24 @@
-# Build stage: Maven + Java 8
-FROM maven:3.8.6-openjdk-8-slim AS build
+# Build stage: Gradle + Java 8
+FROM gradle:6.9.4-jdk8 AS build
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-RUN mvn clean package -DskipTests
 
-# Runtime: Tomcat (deploy WAR as ROOT)
+# Copy các file cấu hình Gradle trước để tận dụng cache
+COPY build.gradle settings.gradle ./
+COPY src ./src
+
+# Build dự án (bỏ qua chạy tests để nhanh hơn)
+RUN gradle build -x test --no-daemon
+
+# Runtime stage: Tomcat 8.5 (deploy WAR as ROOT)
 FROM tomcat:8.5-jre8
 WORKDIR /usr/local/tomcat/webapps
-COPY --from=build /app/target/*.war ROOT.war
+
+# Xóa các ứng dụng mặc định của Tomcat nếu muốn sạch sẽ
+RUN rm -rf ROOT
+
+# Copy file war từ giai đoạn build vào thư mục webapps của Tomcat
+# Gradle mặc định để file ở build/libs/
+COPY --from=build /app/build/libs/spring-boot.war ROOT.war
+
 EXPOSE 8080
-# Tomcat image provides its own startup command
+# Lệnh chạy mặc định của image Tomcat sẽ tự khởi động container

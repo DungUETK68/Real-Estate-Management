@@ -1,0 +1,48 @@
+plugins {
+    id 'org.springframework.boot' version '2.0.9.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'war'
+}
+
+group = 'com.laptrinhjavaweb'
+version = '1.0'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    mysqlVersion = '8.0.13'
+    sitemeshVersion = '2.4.2'
+    displaytagVersion = '1.2'
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    
+    implementation 'org.springframework.security:spring-security-taglibs:4.2.16.RELEASE'
+
+    runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
+
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:2.4.4'
+    implementation 'javax.servlet:jstl:1.2'
+    providedRuntime 'org.apache.tomcat.embed:tomcat-embed-jasper'
+
+    implementation "opensymphony:sitemesh:${sitemeshVersion}"
+    implementation 'org.modelmapper:modelmapper:0.7.4'
+    implementation 'commons-lang:commons-lang:2.6'
+    implementation 'log4j:log4j:1.2.17'
+
+    implementation("displaytag:displaytag:${displaytagVersion}") {
+        exclude group: 'org.slf4j', module: 'jcl104-over-slf4j'
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    }
+}
+
+bootWar {
+    archiveFileName = 'spring-boot.war'
+}

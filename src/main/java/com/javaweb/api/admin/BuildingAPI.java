@@ -36,4 +36,10 @@ public class BuildingAPI {
     public void updateAssignmentBuilding(@RequestBody AssignmentBuildingDTO assignmentBuildingDTO){
         buildingService.updateAssignmentBuilding(assignmentBuildingDTO);
     }
+
+    @GetMapping("/import-es")
+    public String importElasticsearch() {
+        buildingService.importAllToElasticsearch();
+        return "success";
+    }
 }

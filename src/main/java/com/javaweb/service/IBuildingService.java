@@ -17,4 +17,5 @@ public interface IBuildingService {
     void save(BuildingDTO buildingDTO);
     void delete(List<Long> ids);
     void updateAssignmentBuilding(AssignmentBuildingDTO assignmentBuildingDTO);
+    void importAllToElasticsearch();
 }

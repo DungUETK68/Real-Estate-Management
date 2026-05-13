@@ -1,10 +1,13 @@
 package com.javaweb.controller.web;
 
+import com.javaweb.entity.elasticsearch.BuildingDocument;
 import com.javaweb.enums.District;
 import com.javaweb.enums.TypeCode;
 import com.javaweb.model.request.BuildingSearchRequest;
 import com.javaweb.model.response.BuildingSearchResponse;
+import com.javaweb.repository.elasticsearch.BuildingSearchRepository;
 import com.javaweb.service.IBuildingService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
@@ -19,7 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller(value = "homeControllerOfWeb")
 public class HomeController {
@@ -27,13 +32,31 @@ public class HomeController {
     @Autowired
     private IBuildingService buildingService;
 
+    @Autowired
+    private BuildingSearchRepository buildingSearchRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
 	@RequestMapping(value = "/trang-chu", method = RequestMethod.GET)
 	public ModelAndView homePage(BuildingSearchRequest buildingSearchRequest, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("web/home");
         mav.addObject("modelSearch", buildingSearchRequest);
         mav.addObject("listDistricts", District.listDistricts());
         mav.addObject("listTypes", TypeCode.listTypes());
-        List<BuildingSearchResponse> buildings = buildingService.findAll(buildingSearchRequest, PageRequest.of(0, 6));
+        
+        List<BuildingSearchResponse> buildings;
+        if (buildingSearchRequest.getName() != null && !buildingSearchRequest.getName().isEmpty()) {
+            // Tìm kiếm bằng Elasticsearch
+            List<BuildingDocument> docs = buildingSearchRepository.findByNameContaining(buildingSearchRequest.getName());
+            buildings = docs.stream()
+                    .map(doc -> modelMapper.map(doc, BuildingSearchResponse.class))
+                    .collect(Collectors.toList());
+        } else {
+            // Fallback về database truyền thống hoặc lấy mặc định
+            buildings = buildingService.findAll(buildingSearchRequest, PageRequest.of(0, 6));
+        }
+        
         mav.addObject("buildings", buildings);
 		return mav;
 	}

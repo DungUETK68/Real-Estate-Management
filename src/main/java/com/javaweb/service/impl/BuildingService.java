@@ -1,8 +1,10 @@
 package com.javaweb.service.impl;
 
+import com.javaweb.converter.BuildingDocumentConverter;
 import com.javaweb.entity.BuildingEntity;
 import com.javaweb.entity.RentAreaEntity;
 import com.javaweb.entity.UserEntity;
+import com.javaweb.entity.elasticsearch.BuildingDocument;
 import com.javaweb.enums.District;
 import com.javaweb.model.dto.AssignmentBuildingDTO;
 import com.javaweb.model.dto.BuildingDTO;
@@ -13,6 +15,7 @@ import com.javaweb.model.response.StaffResponseDTO;
 import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.RentAreaRepository;
 import com.javaweb.repository.UserRepository;
+import com.javaweb.repository.elasticsearch.BuildingSearchRepository;
 import com.javaweb.service.IBuildingService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,10 @@ public class BuildingService implements IBuildingService {
     private ModelMapper modelMapper;
     @Autowired
     private RentAreaRepository rentAreaRepository;
+    @Autowired
+    private BuildingSearchRepository buildingSearchRepository;
+    @Autowired
+    private BuildingDocumentConverter buildingDocumentConverter;
 
     @Override
     public ResponseDTO listStaffs(Long buildingId) {
@@ -149,6 +156,10 @@ public class BuildingService implements IBuildingService {
                 rentAreaRepository.save(rentAreaEntity);
             }
         }
+        
+        // Đồng bộ sang Elasticsearch
+        BuildingDocument buildingDocument = buildingDocumentConverter.toDocument(savedBuilding);
+        buildingSearchRepository.save(buildingDocument);
     }
 
     @Override
@@ -156,6 +167,8 @@ public class BuildingService implements IBuildingService {
     public void delete(List<Long> ids) {
         for(Long id : ids) {
             buildingRepository.deleteById(id);
+            // Xóa trên Elasticsearch
+            buildingSearchRepository.deleteById(id);
         }
     }
 
@@ -166,5 +179,14 @@ public class BuildingService implements IBuildingService {
         List<UserEntity> staffs = userRepository.findAllById(assignmentBuildingDTO.getStaffs());
         buildingEntity.setUserEntities(staffs);
         buildingRepository.save(buildingEntity);
+    }
+
+    @Override
+    public void importAllToElasticsearch() {
+        List<BuildingEntity> buildingEntities = buildingRepository.findAll();
+        List<BuildingDocument> documents = buildingEntities.stream()
+                .map(buildingDocumentConverter::toDocument)
+                .collect(Collectors.toList());
+        buildingSearchRepository.saveAll(documents);
     }
 }

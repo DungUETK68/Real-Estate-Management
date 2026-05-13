@@ -22,11 +22,28 @@ services:
       - "8081:8080"
     depends_on:
       - db
+      - elasticsearch
     environment:
       # Nạp thông tin kết nối DB cho Spring Boot (Ghi đè application.properties)
       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/estateadvance?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=123456
+      - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=elasticsearch:9300
+      - SPRING_DATA_ELASTICSEARCH_CLUSTER_NAME=docker-cluster
+
+  # 3. Cấu hình Elasticsearch
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.23
+    container_name: real_estate_es
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
 
 volumes:
   db_data:
+  es_data:

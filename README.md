@@ -53,14 +53,3 @@ Sau khi ứng dụng khởi chạy lần đầu, bạn cần đẩy dữ liệu 
 ### Bước 3: Truy cập ứng dụng
 * **Trang chủ khách hàng:** `http://localhost:8081/trang-chu`
 * **Trang quản trị (Admin):** `http://localhost:8081/admin/home`
-
----
-
-## 📂 Lưu ý về Git
-**KHÔNG** push các thư mục sau lên GitHub:
-* `/build/`: Thư mục chứa các file đã biên dịch của Gradle.
-* `/.gradle/`: Thư mục cache của Gradle.
-* `/target/`: Thư mục build cũ của Maven.
-* `.idea/`: Cấu hình riêng của IDE.
-
-Các thư mục này đã được liệt kê trong `.gitignore`.

@@ -35,6 +35,10 @@ Một ứng dụng Web toàn diện hỗ trợ quản lý, vận hành và quả
 * **Quản lý đa tiêu chí:** Tìm kiếm tòa nhà nâng cao trong trang Admin bằng MySQL.
 * **Phân công công việc:** Admin phân công tòa nhà cho nhân viên quản lý (Many-to-Many).
 
+### 3. Gửi Email thông báo tự động (Auto Email)
+* **Chăm sóc khách hàng:** Tự động gửi email cảm ơn và xác nhận tới khách hàng ngay khi họ gửi thông tin liên hệ hoặc yêu cầu tư vấn trên website.
+* **Bảo đảm giao dịch:** Hệ thống gửi mail xử lý độc lập với luồng cơ sở dữ liệu chính, đảm bảo không làm gián đoạn tiến trình lưu trữ dữ liệu nếu quá trình gửi email gặp sự cố.
+
 ---
 
 ## ⚙️ Hướng dẫn cài đặt và khởi chạy (Getting Started)

@@ -41,6 +41,7 @@
                 </div>
             </div>
         </div>
+
         <!-- SEARCH -->
         <div class="search">
             <div class="container">
@@ -86,6 +87,7 @@
                 </form>
             </div>
         </div>
+
         <!-- CONTENT 1  -->
         <div class="content">
             <div class="content-title">
@@ -137,187 +139,6 @@
             </div>
         </div>
     </div>
-
-    <!-- CONTENT 2  -->
-    <section class="section-why mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-md-12">
-                    <div class="title_module_main a-center text-center">
-                        <h2 style="margin-bottom: 15px;"><span>Vì sao bạn chọn bất động sản
-                                    SkyLand ?</span>
-                        </h2>
-                        <p style="margin-bottom: 30px;">Chúng tôi cung cấp đầy đủ và chính xác
-                            nhất thông tin
-                            các dự án bất động sản trên
-                            toàn quốc song hành với dịch vụ tư vấn nhanh chóng và hiệu quả</p>
-                    </div>
-                </div>
-                <div class="col-12 col-md-12">
-                    <div class="wrap">
-                        <div
-                                class="swiper_why swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-multirow">
-                            <div class="swiper-wrapper">
-                                <div class="item swiper-slide swiper-slide-active">
-                                    <div class="row section-why">
-                                        <div class="col-12 col-md-4">
-                                            <div class="wrap-temp d-flex">
-                                                <div class="ico">
-                                                    <img class="img-responsive lazyload loaded"
-                                                         src="https://bizweb.dktcdn.net/100/328/362/themes/894751/assets/img_why1.png?1676257083798" data-src=""
-                                                         alt="Chất lượng tốt nhất" data-was-processed="true">
-                                                </div>
-                                                <div class="content_p ml-4">
-                                                    <h4><a href="#" class="why-title a-text">Chất lượng
-                                                        tốt nhất</a>
-                                                    </h4>
-                                                    <p class="why-desc">Nghiên cứu, thiết kế và
-                                                        đầu tư xây dựng
-                                                        với hệ thống dịch
-                                                        vụ
-                                                        với chất
-                                                        lượng tốt nhất</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-4">
-                                            <div class="wrap-temp d-flex">
-                                                <div class="ico">
-                                                    <img class="img-responsive lazyload loaded"
-                                                         src="https://bizweb.dktcdn.net/100/328/362/themes/894751/assets/img_why2.png?1676257083798" data-src="" alt=""
-                                                         data-was-processed="true">
-                                                </div>
-                                                <div class="content_p ml-4">
-                                                    <h4><a href="#" class="why-title a-text">Tìm kiếm
-                                                        thông tin dễ
-                                                        dàng</a></h4>
-                                                    <p class="why-desc">Tìm kiếm bất động sản
-                                                        bạn muốn theo danh
-                                                        mục cực kì dễ
-                                                        dàng</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-4">
-                                            <div class="wrap-temp d-flex">
-                                                <div class="ico">
-                                                    <img class="img-responsive lazyload loaded"
-                                                         src="https://bizweb.dktcdn.net/100/328/362/themes/894751/assets/img_why3.png?1676257083798" data-src="" alt=""
-                                                         data-was-processed="true">
-                                                </div>
-                                                <div class="content_p ml-4">
-                                                    <h4><a href="#" class="why-title a-text">Kết nối
-                                                        với nhà đầu tư</a>
-                                                    </h4>
-                                                    <p class="why-desc">Nhà đầu tư sẽ mang đến
-                                                        những sản phẩm và
-                                                        dịch vụ tốt nhất
-                                                        đáp ứng nhu cầu của bạn</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 col-md-4">
-                                        <div class="wrap-temp d-flex">
-                                            <div class="ico">
-                                                <img class="img-responsive lazyload loaded"
-                                                     src="https://bizweb.dktcdn.net/100/328/362/themes/894751/assets/img_why4.png?1676257083798" data-src=""
-                                                     alt="Chất lượng tốt nhất" data-was-processed="true">
-                                            </div>
-                                            <div class="content_p ml-4">
-                                                <h4 class=""><a href="#" class="why-title a-text">Tối
-                                                    ưu hóa dịch
-                                                    vụ</a></h4>
-                                                <p class="why-desc">Nghiên cứu, thiết kế và đầu
-                                                    tư xây dựng với
-                                                    hệ thống dịch vụ
-                                                    với chất
-                                                    lượng tốt nhất</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-4">
-                                        <div class="wrap-temp d-flex">
-                                            <div class="ico">
-                                                <img class="img-responsive lazyload loaded"
-                                                     src="https://bizweb.dktcdn.net/100/328/362/themes/894751/assets/img_why5.png?1676257083798" data-src=""
-                                                     alt="Chất lượng tốt nhất" data-was-processed="true">
-                                            </div>
-                                            <div class="content_p ml-4">
-                                                <h4><a href="#" class="why-title a-text">Đảm bảo quyền
-                                                    lợi khách
-                                                    hàng</a></h4>
-                                                <p>
-                                                <p class="why-desc">Thực hiện các chương trình
-                                                    chăm sóc và gia
-                                                    tăng lợi ích cho
-                                                    khách hàng.</p>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-4">
-                                        <div class="wrap-temp d-flex">
-                                            <div class="ico">
-                                                <img class="img-responsive lazyload loaded"
-                                                     src="https://bizweb.dktcdn.net/100/328/362/themes/894751/assets/img_why6.png?1676257083798" data-src=""
-                                                     alt="Chất lượng tốt nhất" data-was-processed="true">
-                                            </div>
-                                            <div class="content_p ml-4">
-                                                <h4><a href="#" class="why-title a-text">Tiết kiệm thời
-                                                    gian và chi
-                                                    phí</a></h4>
-                                                <p class="why-desc">Cập nhật giá cả nhanh chóng
-                                                    và chính xác
-                                                    giúp bạn tiết kiệm
-                                                    chi phí hơn nhiều</p>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER  -->
-    <footer class="footer">
-        <div class="container-fluid">
-            <div class="top-footer text-center mt-0">
-                <div class="logo logo-footer pt-5">
-                    <a href="./ViewHome.html"><img src="https://bizweb.dktcdn.net/100/328/362/themes/894751/assets/logo_footer.png?1676257083798"
-                                                   alt="logo-footer"></a>
-                    <p class="desc-logo-footer mt-3">Với hơn 10 năm kinh nghiệm, SkyLand tự hào là sàn
-                        mua
-                        bán, giao dịch và quảng cáo
-                        bất động sản hàng đầu tại Việt Nam</p>
-                </div>
-            </div>
-            <div class="bottom-footer container">
-                <div class="row">
-                    <div class="col-12 col-md-3">
-                        <h4 class="title-item-bottom-footer">Thông tin công ty</h4>
-                        <p class="desc-item-bottom-footer desc-1"><a class="a-text" href="">Trang
-                            chủ</a></p>
-                        <p class="desc-item-bottom-footer"><a class="a-text" href="">Giới thiệu</a></p>
-                        <p class="desc-item-bottom-footer"><a class="a-text" href="">Dự án bất động
-                            sản</a></p>
-                        <p class="desc-item-bottom-footer"><a class="a-text" href="">Tin tức</a></p>
-                        <p class="desc-item-bottom-footer"><a class="a-text" href="">Liên hệ</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="bottom-footer-2">
-            <div class="text-center desc-bottom-footer-2">@ Bản quyền thuộc về Dungx2802</div>
-        </div>
-    </footer>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
